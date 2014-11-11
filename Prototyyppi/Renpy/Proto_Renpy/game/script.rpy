@@ -11,39 +11,71 @@ image border left = "images/borders/left.png"
 
 define n = Character('Narrator', color="#ffffff")
 
+######################################################
+# label start
+######################################################
 label start:
 
 # images
 scene bg black
 show landscape village at top
 
+######################################################
 # python loop for border run, using mouse coordinates
-$ randomValue = renpy.random.randint ( 0 , 3 )
-$ rounds = 8
+######################################################
+# random value for picking which border image to show
+$randomValue = renpy.random.randint ( 0 , 3 )
+
+$rounds = 8
+
 while rounds > 0:
-  $ newRandom = False
-  while newRandom == False:
-    $ tempRandomValue = renpy.random.randint ( 0, 3 )
-    if tempRandomValue != randomValue:
-      $ randomValue = tempRandomValue
-      $ newRandom = True
-  
-  # show border based on random value
-  if randomValue == 0:
-    show border top
-	# add mouse coordinate check for top border
-	# add time limit for reaching that border
-	# add those for every if-statements
-  if randomValue == 1:
-    show border right
-  if randomValue == 2:
-    show border bottom
-  if randomValue == 3:
-    show border left
-  
-  
-  
-  $ rounds -= 1
+    $newRandom = False
+    while newRandom == False:
+        $tempRandomValue = renpy.random.randint ( 0, 3 )
+        if tempRandomValue != randomValue:
+            $randomValue = tempRandomValue
+            $newRandom = True        
+    
+    $mouseCoordinates = renpy.get_mouse_pos()
+    $mouseX = mouseCoordinates[0]
+    $mouseY = mouseCoordinates[1]
+    
+    $topBorderY = 20
+    $rightBorderX = 780
+    $bottomBorderY = 580
+    $leftBorderX = 20
+    
+    #tähän laskuri joka nollataan joka kiesin alussa
+    
+    #tähän sisäinen looppi joka pyörii niin pitkään kunnes joko aika loppuu
+    #tai hiiri viedään oikean reunuksen päälle
+    
+    $borderReached = False
+    $timeUp = False
+    
+    while borderReached == False or timeUp == False:
+        # show border based on random value
+        if randomValue == 0:
+            show border top
+            if mouseY <= topBorderY and mouseY > 0:
+                $borderReached = True
+            
+        if randomValue == 1:
+            show border right
+            if mouseX >= rightBorderX:
+                $borderReached = True
+            
+        if randomValue == 2:
+            show border bottom
+            if mouseY >= bottomBorderY:
+                $borderReached = True
+                
+        if randomValue == 3:
+            show border left
+            if mouseX <= leftBorderX and mouseX > 0:
+                $borderReached = True        
+            
+    $rounds -= 1
 
 # algorithm for border run
 #loop start

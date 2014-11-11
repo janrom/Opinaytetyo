@@ -1,22 +1,24 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While executing init code:
-  File "game/script.rpy", line 11, in script
-    image borders = [ top, right, left ]
-Exception: Not a displayable: [<ATLTransform at 3e51430>, <ATLTransform at 3e511b0>, <ATLTransform at 3e51130>]
+While running game code:
+  File "game/script.rpy", line 62, in script
+    while rounds > 0:
+  File "game/script.rpy", line 62, in <module>
+    while rounds > 0:
+NameError: name 'rounds' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 11, in script
-    image borders = [ top, right, left ]
-  File "D:\Omat_jutut\Opiskelu\AMK\4.Vuosi\Opinnäytetyö\IDEs\renpy-6.18.1-sdk\renpy\ast.py", line 879, in execute
-    renpy.exports.image(self.imgname, img)
-  File "D:\Omat_jutut\Opiskelu\AMK\4.Vuosi\Opinnäytetyö\IDEs\renpy-6.18.1-sdk\renpy\exports.py", line 302, in image
-    d = renpy.easy.displayable(d)
-  File "D:\Omat_jutut\Opiskelu\AMK\4.Vuosi\Opinnäytetyö\IDEs\renpy-6.18.1-sdk\renpy\easy.py", line 129, in displayable
-    raise Exception("Not a displayable: %r" % (d,))
-Exception: Not a displayable: [<ATLTransform at 3e51430>, <ATLTransform at 3e511b0>, <ATLTransform at 3e51130>]
+  File "game/script.rpy", line 62, in script
+    while rounds > 0:
+  File "D:\Omat_jutut\Opiskelu\AMK\4.Vuosi\Opinnäytetyö\IDEs\renpy-6.18.1-sdk\renpy\ast.py", line 1537, in execute
+    if renpy.python.py_eval(self.condition):
+  File "D:\Omat_jutut\Opiskelu\AMK\4.Vuosi\Opinnäytetyö\IDEs\renpy-6.18.1-sdk\renpy\python.py", line 1416, in py_eval
+    return eval(py_compile(source, 'eval'), globals, locals)
+  File "game/script.rpy", line 62, in <module>
+    while rounds > 0:
+NameError: name 'rounds' is not defined
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.18.3.761

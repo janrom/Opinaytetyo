@@ -2,20 +2,20 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 33: reached end of line when expecting ':'.
-    if randomValue == 0
-                       ^
+File "game/script.rpy", line 61: expected statement.
+    borderReached = True
+                  ^
 
-File "game/script.rpy", line 35: reached end of line when expecting ':'.
-    if randomValue == 1
-                       ^
+File "game/script.rpy", line 66: expected statement.
+    borderReached = True
+                  ^
 
-File "game/script.rpy", line 37: reached end of line when expecting ':'.
-    if randomValue == 2
-                       ^
+File "game/script.rpy", line 71: expected statement.
+    borderReached = True
+                  ^
 
-File "game/script.rpy", line 39: reached end of line when expecting ':'.
-    if randomValue == 3
-                       ^
+File "game/script.rpy", line 76: expected statement.
+    borderReached = True        
+                  ^
 
 Ren'Py Version: Ren'Py 6.18.3.761
