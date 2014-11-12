@@ -263,6 +263,8 @@ init -1 python hide:
     ## is run, so the persistent information can be found by the init code.)
 python early:
     config.save_directory = "Proto_Renpy-1415621670"
+    
+    renpy.register_statement( "borderRunCounter" )
 
 init -1 python hide:
     #########################################
