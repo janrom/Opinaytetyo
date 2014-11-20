@@ -2,20 +2,12 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 74: end of line expected.
-    hide screen border top
-                       ^
+File "game/script.rpy", line 434: expected 'name' not found.
+    jump $ onFailureLabel
+         ^
 
-File "game/script.rpy", line 75: end of line expected.
-    hide screen border right
-                       ^
-
-File "game/script.rpy", line 76: end of line expected.
-    hide screen border bottom
-                       ^
-
-File "game/script.rpy", line 77: end of line expected.
-    hide screen border left
-                       ^
+File "game/script.rpy", line 441: expected 'name' not found.
+    jump $ onSuccessLabel
+         ^
 
 Ren'Py Version: Ren'Py 6.18.3.761
