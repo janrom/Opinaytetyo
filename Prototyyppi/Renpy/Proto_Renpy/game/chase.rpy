@@ -1,91 +1,83 @@
-label joku:
+screen borderTop():
+    mousearea:
+        area ( 0, 0, 800, 20 )
+        hovered Jump( "chase" )
+    timer 2.0 action Jump( lblChaseFailure )
+    
+screen borderRight():
+    mousearea:
+        area ( 780, 0, 20, 600 )
+        hovered Jump( "chase" )
+    timer 2.0 action Jump( lblChaseFailure )
 
-    init python:
+screen borderBottom():
+    mousearea:
+        area ( 0, 580, 800, 20 )
+        hovered Jump( "chase" )
+    timer 2.0 action Jump( lblChaseFailure )
+
+screen borderLeft():
+    mousearea:
+        area ( 0, 0, 20, 800 )
+        hovered Jump( "chase" )
+    timer 2.0 action Jump( lblChaseFailure )
+
+label chase:
+    
+    hide screen borderTop
+    hide screen borderRight
+    hide screen borderBottom
+    hide screen borderLeft
+      
+    hide borderTop
+    hide borderRight
+    hide borderBottom
+    hide borderLeft
+    
+    #chaseRounds is declared at start-label
+    if chaseRounds > 0: 
         
-        import time
+        # randomBorder is declared at start-label
+        $ randomBorder = renpy.random.randint ( 0 , 3 )
         
-        # mouse event function
-        def event(self, ev, x, y, st):
-                    
-            # if this border is shown atm
-            if topBorderOn == True:
-                # if mouse pointer is inside the 20 pixel area
-                if y < topY:
-                    # set the area flag true
-                    onTop = True
-                    # end clocking time
-                    endTime = time.time()
-                        
-                if rightBorderOn == True:
-                    if x > rightX:
-                        onRight = True
-                        endTime = time.time()
-                                
-                if bottomBorderOn == True:
-                    if y > bottomY:
-                        onBottom = True
-                        endTime = time.time()
-                            
-                if leftBorderOn == True:
-                    if x < leftX:
-                        onLeft = True
-                        endTime = time.time()
-        
-            # checks if player gets her mouse pointer on defined area in given time
-            # on success jump to onSuccessLabel, on failure to onFailureLabel
-            def chaseFunc():
+        # random value for picking which border image to show
+        if randomBorder == 0:
+            $ chaseRounds -= 1  
+            show borderLeft
+            show borderRight
+            show borderBottom
+            show screen borderTop
                 
-                if randomValue == 0:
-                    # start clocking time
-                    startTime = time.time()
-                            
-                    # wait for users mouse motion
-                    # user must get the pointer on the right area in this time
-                    time.sleep( 2 )
-                            
-                    # calculate time difference
-                    totalTime = endTime - startTime
-                            
-                    # if pointer reached the area in time,
-                    # jump to on success label, otherwise on failure label
-                    if onTop == True and totalTime < 1.0:
-                        successEscape = True
-                    else:
-                        successEscape = False
-                        
-                    if randomValue == 1:
-                        
-                        startTime = time.time()
-                        time.sleep( 2 )
-                        endTime = time.time()
-                        totalTime = endTime - startTime
-                            
-                        if onRight == True and totalTime < 1.0:
-                            successEscape = True
-                        else:
-                            successEscape = False
-                        
-                    if randomValue == 2:
-                        
-                        startTime = time.time()
-                        time.sleep( 2 )
-                        endTime = time.time()
-                        totalTime = endTime - startTime
-                            
-                        if onBottom == True and totalTime < 1.0:
-                            successEscape = True
-                        else:
-                            successEscape = False
-                        
-                    if randomValue == 3:
-                            
-                        startTime = time.time()
-                        time.sleep( 2 )
-                        endTime = time.time()
-                        totalTime = endTime - startTime
-                            
-                        if onLeft == True and totalTime < 1.0:
-                            successEscape = True
-                        else:
-                            successEscape = False
-    return
+        elif randomBorder == 1:
+            $ chaseRounds -= 1  
+            show borderLeft
+            show borderTop
+            show borderBottom
+            show screen borderRight
+        
+        elif randomBorder == 2:
+            $ chaseRounds -= 1  
+            show borderLeft
+            show borderTop
+            show borderRight
+            show screen borderBottom
+        
+        elif randomBorder == 3:
+            $ chaseRounds -= 1  
+            show borderTop
+            show borderRight
+            show borderBottom
+            show screen borderLeft
+            
+        pause
+            
+    # if player completes all rounds
+    # jump to label according to last stored number
+    if lblChaseSuccess == 1:
+        jump manEscapesForestPeople
+        
+    if lblChaseSuccess == 2:
+        jump manEscapesOldMan
+        
+    if lblChaseSuccess == 3:
+        jump manWinInnkeeper

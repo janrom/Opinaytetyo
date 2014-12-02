@@ -276,7 +276,7 @@ init -1 python hide:
 
     ## Should we start in fullscreen mode?
 
-    config.default_fullscreen = False
+    config.default_fullscreen = True
 
     ## The default text speed in characters per second. 0 is infinite.
 
@@ -288,3 +288,5 @@ init -1 python hide:
 
     #########################################
     ## More customizations can go here.
+    
+    RENPY_SKIP_MAIN_MENU = True

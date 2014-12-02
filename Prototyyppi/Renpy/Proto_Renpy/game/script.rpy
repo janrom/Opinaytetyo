@@ -1,78 +1,50 @@
 ﻿init:
-    image bg black = "images/backgrounds/black.png"
+    image black = "images/backgrounds/black.png"
     image village = "images/scans/village.jpg"
     image village2 = "images/scans/village2.jpg"
-    
+    image mountain = "images/scans/mountain.jpg"
+    image castle = "images/scans/castle.jpg"
     image unconscious = "images/scans/unconscious.jpg"
-    
     image tree = "images/scans/tree.jpg"
     image tree2 = "images/scans/tree2.jpg"
     
     image woman = "images/scans/woman.jpg"
 
-    image imgBorderTop = "images/borders/top.png"
-    image imgBorderRight = "images/borders/right.png"
-    image imgBorderBottom = "images/borders/bottom.png"
-    image imgBorderLeft = "images/borders/left.png"
+    image borderTop = "images/borders/top2.png"
+    image borderRight = "images/borders/right2.png"
+    image borderBottom = "images/borders/bottom2.png"
+    image borderLeft = "images/borders/left2.png"
 
-    define n = Character('Narrator', color="#ffffff")
-
-screen scrBorderTop():
-    mousearea:
-        area ( 0, 0, 800, 20 )
-        hovered Jump( "chase" )
-
-screen scrBorderRight():
-    mousearea:
-        area ( 780, 0, 20, 600 )
-        hovered Jump( "chase" )
-
-screen scrBorderBottom():
-    mousearea:
-        area ( 0, 580, 800, 20 )
-        hovered Jump( "chase" )
-
-screen scrBorderLeft():
-    mousearea:
-        area ( 0, 0, 20, 800 )
-        hovered Jump( "chase" )
-
+    define n = Character( 'Narrator', color="#ffffff" )
+    define om = Character( 'Old man', color="#00ff00" )
+    define vl = Character( 'Village leader', color="#ff0000" )
+    define ik = Character( 'Innkeeper', color="#0000ff" )
+    define h = Character( 'Husband', color="#00ffff" )
+    define w = Character( 'Wife', color="#ff00ff" )
+    define ow = Character( 'Old woman', color="#ffff00" )
+    
+    $ lblChaseSuccess = ""
+    $ lblChaseFailure = ""    
+    
+    # dialog category anwers
+    # categories determines which story branch is selected
+    # the number presents how many times player needs to select that category answer to be activated
+    # ie. player answer 2 time from help category, then helping branch of story is selected
+    # 2 = default, 1 = weighting in that category
+    $ dialogAttack = 2
+    $ dialogJoin = 2
+    $ dialogHelp = 2
+    
+    $ manInBeastForm = False
+    $ womanHaveAmulet = False
+            
 label start:
     
-    ##########################################################################################
     # stuff for chase label
-    #
-    $ chaseRounds = 5           # how many times chase algorithm will run
-    $ randomValue = 0           # determines which border to show
-    $ onSuccessLabel = ""       # name of label to jump from chase label, on success escape
-    $ onFailureLabel = ""
-    $ successEscape = False     # chaseFunc in chase.rpy return true if escape was success
+    $ chaseRounds = 5   # how many times border loop will run
+    $ randomBorder = 0  # determines which border to show
     
-    # truth if that border is shown atm
-    $ topBorderOn = False
-    $ rightBorderOn = False
-    $ bottomBorderOn = False
-    $ leftBorderOn = False
-    
-    # border values for chase areas
-    $ topY = 20
-    $ rightX = 780
-    $ bottomY = 580
-    $ leftX = 20
-    
-    # truth if mouse is on that 20 pixel area
-    $ onTop = False
-    $ onRight = False
-    $ onBottom = False
-    $ onLeft = False
-    
-    # for clocking time
-    $ startTime = 0.0
-    $ endTime = 0.0
-    #
-    ######################################################################################
-  
-    scene bg black
+    scene black
     
     n "This story happened generations ago"
     n "In the time when forests were wild and man was just a part of a nature"
@@ -80,7 +52,7 @@ label start:
     
 label village:
     
-    scene bg black
+    scene black
     show village at top
     
     n "After a long and weary travel, a man and a woman finally saw a landscape which entwined a little town in"
@@ -95,15 +67,15 @@ label village:
 
 label unconscious:
     
-    scene bg black
-    show unconscious at top with fade 
+    scene black
+    show unconscious at top with dissolve 
     
-    pause 3
+    pause 1
     
 label husbandAwakesInForest:
     
-    scene bg black
-    show village2 at top with fade
+    scene black
+    show village2 at top with dissolve
     
     n "Husband begins to gain his consciosness opening his eyes"
     n "He is badly beaten with his clothes ripped"
@@ -125,7 +97,7 @@ label husbandAwakesInForest:
             
 label returnToVillage:
     
-    scene bg black
+    scene black
     show village at top
     
     n "When husband arrives in village, villagers starts gather around him"
@@ -147,7 +119,7 @@ label returnToVillage:
 
 label searchForest:
     
-    scene bg black
+    scene black
     show tree at top
     
     n "He wanders to small glade, a huge old oak in the center"
@@ -160,22 +132,52 @@ label searchForest:
     
     menu:
         "Fear hits him and he turns to run away in horror":
-            $ onSuccessLabel = "playerEscapes"
-            $ onFailureLabel = "playerGetCaught"
+            # refers to first jump labels from chase label
+            $ lblChaseSuccess = 1
+            $ lblChaseFailure = "chaseFailureForestPeople"
             jump chase
             
         "He can hear his heart bounding but he force himself to greet the people":
             jump greetForestPeople
             
-label playerEscapes:
-    n "He manage to escape from the people"
+label manEscapesForestPeople:
     
-label playerGetCaught:
-    n "They catch the man"
+    scene black
+    show castle at top
+    
+    n "He run for his life through the forest"
+    n "Finally he thinks he lost the chasers"
+    n "He stops to take a breath and looks around him"
+    n "There's a castle rising in front of him"
+    n "He decide to go in"
+    n "He see a old man standing in hallway, like he was waiting him"
+        
+    $ attack = 1 # set dialog weight for attacking
+    jump dialog1
+    
+    
+label chaseFailureForestPeople:
+    
+    scene black
+    show mountain at top
+    
+    n "Husband get caught"
+    n "People take him to mountains"
+    
+label husbandIsTakenToCastle:
+    
+    scene black
+    show castle at top
+    
+    n "They arrive at the very old castle covered by vegetation"
+    n "They go in and there's a old man sitting in the room"    
+    
+    $ join = 1 # set dialog weight for joining
+    jump dialog1
 
 label searchMountainSide:
     
-    scene bg black
+    scene black
     show mountain at top
     
     n "He search and climbs higher and higher"
@@ -185,7 +187,7 @@ label searchMountainSide:
     
 label castleMan:
 
-    scene bg black
+    scene black
     show castle at top
     
     n "He arrives at castle"
@@ -194,13 +196,13 @@ label castleMan:
     n "Old man appears from shadows"
     n "He stares at husband with his sharp eyes in silence"
     
-    # DIALOG 1       
+    jump dialog1
         
 
 label leaveTown:
 
-    scene bg black
-    show landscape forest2 at top
+    scene black
+    show village2 at top
     
     n "People quit the chase after he reach the woods"
     n "They seems to be too afraid to continue"
@@ -214,18 +216,18 @@ label leaveTown:
             
 label findInn:
     
-    scene bg black
+    scene black
     show village at top
     
     n "He manages to lost villagers who followed him"
     n "Finally he finds the inn on goes in"
-    n "There's a inn keeper and he looks very suprised to see you"
+    n "There's a innkeeper and he looks very suprised to see you"
     
-    # DIALOG 5
+    jump dialog5
 
 label greetForestPeople:
     
-    scene bg black
+    scene black
     show tree2 at top
     
     n "People gather around him, touching him and communicating with each other"
@@ -249,10 +251,12 @@ label greetForestPeople:
     n "He can smell the scent of his wife"
     n "As the scent comes in the rush of adreline hits in"
     n "He starts to run like a jaguar following that scent"
+    
+    $ manInBeastForm = True
         
 label village:
     
-    scene bg black
+    scene black
     show village at top
     
     n "The scent leads him back to village"
@@ -264,16 +268,11 @@ label village:
     n "He force himself trough the door and sees his wife laying on the ground"
     n "Beaten and unconcsious"
     n "Husband hears voices outside the shed"
-    n "Inn keeper rushes in with couple of men following him"
+    n "innkeeper rushes in with couple of men following him"
+    n "Husband attacks them with his beastly rage"
     
-    menu:
-        "Husband attacks them with rage caused by his beaten wife":
-            jump attackInnKeeper
-            
-        # paeta raivopäissään yliluonnollisilla voimilla, jättäen vaimon? pois?
-        "He escapes by jumping trough a window":
-            jump chase
-    
+    jump attackInnKeeper
+
 label attackInnKeeper:
     
     n "Straight away men sees husband's fierceful eyes, fear grips their heart"
@@ -288,7 +287,7 @@ label attackInnKeeper:
     
 label blackness:
 
-    scene bg black with dissolve
+    scene black with dissolve
     
     pause 2
     
@@ -304,10 +303,15 @@ label blackness:
 
 label playAsWoman:
 
-    scene bg black
+    scene black
     show woman at top with fade
     
     pause 3
+    
+label playAsWoman:
+    
+    scene black
+    show village at top with dissolve
     
     n "She sneaks in the shadows of alley towards the voices coming from street"
     n "On the street she sees her husband lying on the ground in chains"
@@ -330,6 +334,9 @@ label playAsWoman:
             
 label attackOldWoman:
     
+    scene black
+    show village at top
+    
     n "She charge towards the old woman"
     n "Woman tries to turn and run away, screaming out loud"
     n "Wife catch her, knocking her down and beating her desperately"
@@ -340,24 +347,32 @@ label attackOldWoman:
     n "Quickly they tide her down and drag her to the street next to her husband"
     n "Old woman is lead there all bloody and badly beaten"
     n "People get more furious looking to be in rage"
-    n "They drag the man and the woman violently onto quickly build bonfire tiding them on to poles"
-    n "They light up the bonfire and flames starts to rise, licking both of them"
+    n "They drag the man and the woman violently onto quickly build bonfire tiding them onto poles"
+    n "They light up the bonfire and flames start to rise, licking both of them"
     n "Pain rises towards unbearable state"
     n "They scream, they beg for mercy but no one listens"
     n "They burn at the stake, together"
+    
     n "The end"
+    return
     
 label castleWomanEscape:
+    
+    scene black
+    show castle at top    
     
     n "Running away for her life he manage to get out of village"
     n "She just keeps running ending up to castle"
     n "There she finds an old man"
     
-    #DIALOG 2 with 
+    jump dialog2
     
 label oldWoman:
     
-    n "Fear in the old woman's eyes start to change to warm and kind"
+    scene black 
+    show village at top
+    
+    n "Fear in the old woman's eyes start to change to warmth and kindness"
     n "She smiles at you, goes to the door, opens it and waves to wife to follow her inside"
     n "Inside she show drawings from village history"
     n "There are drawings of villagers and people which seems to live in forest"
@@ -368,76 +383,14 @@ label oldWoman:
     n "Woman just points to map and show the direction"
     n "Without better plan, wife decide to go to that castle" 
     
+    jump dialog2
+    
 label castleWoman:
     
-    scene bg black
+    scene black
     show castle at top
     
     n "She takes the map and the amulet and leaves"
     n "She finds the castle and an old man in there" 
     
-    # DIALOG 2
- 
-label chase:
-   
-    if chaseRounds > 0:
-    
-        hide screen scrBorderTop
-        hide screen scrBorderRight
-        hide screen scrBorderBottom
-        hide screen scrBorderLeft
-        
-        hide imgBorderTop
-        hide imgBorderRight
-        hide imgBorderBottom
-        hide imgBorderLeft
-        
-        $ topBorderOn = False
-        $ rightBorderOn = False
-        $ bottomBorderOn = False
-        $ leftBorderOn = False
-        
-        $ onTop = False
-        $ onRight = False
-        $ onBottom = False
-        $ onLeft = False
-        
-        $ randomValue = renpy.random.randint ( 0 , 3 )
-        
-        # random value for picking which border image to show
-        if randomValue == 0:
-            $ chaseRounds -= 1  
-            show imgBorderTop
-            $ topBorderOn = True
-            call joku
-                
-        elif randomValue == 1:
-            $ chaseRounds -= 1  
-            show imgBorderRight
-            $ rightBorderOn = True
-            call joku
-        
-        elif randomValue == 2:
-            $ chaseRounds -= 1  
-            show imgBorderBottom
-            $ bottomBorderOn = True
-            call joku
-        
-        elif randomValue == 3:
-            $ chaseRounds -= 1  
-            show imgBorderLeft
-            $ leftBorderOn = True
-            call joku
-        
-        # if player doensn't manage to get mouse pointer on right area in time
-        if successEscape == False:
-            jump $ onFailureLabel
-            
-        # label seems to need a something to pause, pause command or text string etc. 
-        # otherwise it just skip the label
-        pause
-    
-    # if player completes all rounds
-    jump $ onSuccessLabel
-        
-        
+    # DIALOG 2 

@@ -2,12 +2,7 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 434: expected 'name' not found.
-    jump $ onFailureLabel
-         ^
-
-File "game/script.rpy", line 441: expected 'name' not found.
-    jump $ onSuccessLabel
-         ^
+File "game/script.rpy", line 24: is not terminated with a newline. (Check strings and parenthesis.)
+        define ow = Character( 'Old woman', color="#ffff00"
 
 Ren'Py Version: Ren'Py 6.18.3.761
