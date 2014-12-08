@@ -2,25 +2,25 @@ screen borderTop():
     mousearea:
         area ( 0, 0, 800, 20 )
         hovered Jump( "chase" )
-    timer 2.0 action Jump( lblChaseFailure )
+    timer 1.2 action Jump( lblChaseFailure )
     
 screen borderRight():
     mousearea:
         area ( 780, 0, 20, 600 )
         hovered Jump( "chase" )
-    timer 2.0 action Jump( lblChaseFailure )
+    timer 1.2 action Jump( lblChaseFailure )
 
 screen borderBottom():
     mousearea:
         area ( 0, 580, 800, 20 )
         hovered Jump( "chase" )
-    timer 2.0 action Jump( lblChaseFailure )
+    timer 1.2 action Jump( lblChaseFailure )
 
 screen borderLeft():
     mousearea:
         area ( 0, 0, 20, 800 )
         hovered Jump( "chase" )
-    timer 2.0 action Jump( lblChaseFailure )
+    timer 1.2 action Jump( lblChaseFailure )
 
 label chase:
     
@@ -74,10 +74,10 @@ label chase:
     # if player completes all rounds
     # jump to label according to last stored number
     if lblChaseSuccess == 1:
-        jump manEscapesForestPeople
+        jump chaseSuccessForestPeople
         
     if lblChaseSuccess == 2:
-        jump manEscapesOldMan
+        jump dialog1ChaseSuccessCastle
         
     if lblChaseSuccess == 3:
-        jump manWinInnkeeper
+        jump dialog5ManWinsInnkeeper

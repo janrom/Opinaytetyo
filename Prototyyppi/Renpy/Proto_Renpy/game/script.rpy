@@ -1,19 +1,21 @@
 ﻿init:
-    image black = "images/backgrounds/black.png"
+    image black = "#000000"
     image village = "images/scans/village.jpg"
     image village2 = "images/scans/village2.jpg"
     image mountain = "images/scans/mountain.jpg"
+    image mountain2 = "images/scans/mountain2.jpg"
     image castle = "images/scans/castle.jpg"
     image unconscious = "images/scans/unconscious.jpg"
     image tree = "images/scans/tree.jpg"
     image tree2 = "images/scans/tree2.jpg"
-    
+    image nature = "images/scans/oneWithNature.jpg"
     image woman = "images/scans/woman.jpg"
+    image man = "images/scans/man.jpg"
 
-    image borderTop = "images/borders/top2.png"
-    image borderRight = "images/borders/right2.png"
-    image borderBottom = "images/borders/bottom2.png"
-    image borderLeft = "images/borders/left2.png"
+    image borderTop = "images/borders/top.png"
+    image borderRight = "images/borders/right.png"
+    image borderBottom = "images/borders/bottom.png"
+    image borderLeft = "images/borders/left.png"
 
     define n = Character( 'Narrator', color="#ffffff" )
     define om = Character( 'Old man', color="#00ff00" )
@@ -22,7 +24,18 @@
     define h = Character( 'Husband', color="#00ffff" )
     define w = Character( 'Wife', color="#ff00ff" )
     define ow = Character( 'Old woman', color="#ffff00" )
+            
+label start:
+    ################################################################################################
+    # global variable
     
+    play music "audio/music/Tribal Ritual.wav" loop fadein 3.0
+        
+    # stuff for chase label
+    $ chaseRounds = 5   # how many times border loop will run
+    $ randomBorder = 0  # determines which border to show
+    
+    # defines next label to go depending if chase was success or not
     $ lblChaseSuccess = ""
     $ lblChaseFailure = ""    
     
@@ -33,29 +46,26 @@
     # 2 = default, 1 = weighting in that category
     $ dialogAttack = 2
     $ dialogJoin = 2
-    $ dialogHelp = 2
+    #$ dialogHelp = 2 not in use atm
     
-    $ manInBeastForm = False
+    # story flags
+    $ manInBeastForm = False    
     $ womanHaveAmulet = False
-            
-label start:
     
-    # stuff for chase label
-    $ chaseRounds = 5   # how many times border loop will run
-    $ randomBorder = 0  # determines which border to show
-    
+    ###############################################################################################
     scene black
     
-    n "This story happened generations ago"
-    n "In the time when forests were wild and man was just a part of a nature"
-    n "Before the man made himself a tyranny of the world"
+    n "Let me tell you a story which happened here a long time ago"
+    n "The story is about a wandering couple who looked a shelter from a local village inn"    
     
-label village:
+label villageStart:
     
     scene black
-    show village at top
+    show village at top with dissolve
     
-    n "After a long and weary travel, a man and a woman finally saw a landscape which entwined a little town in"
+    pause 1
+    
+    n "After a long and weary travel, a man and a woman finally saw a landscape which entwined a little village in"
     n "They headed into inn and rent a room for a night"
     n "After a bath and a warm meal they fall into sleep"
     n "At the middle of the night, man suddenly awakes for a scream of her wife"
@@ -65,7 +75,7 @@ label village:
     n "They knock husband down and he falls in unconsciousness"
     
 
-label unconscious:
+label unconsciousHusband:
     
     scene black
     show unconscious at top with dissolve 
@@ -77,7 +87,9 @@ label husbandAwakesInForest:
     scene black
     show village2 at top with dissolve
     
-    n "Husband begins to gain his consciosness opening his eyes"
+    pause 1
+    
+    n "Husband begins to gain his consciousness opening his eyes"
     n "He is badly beaten with his clothes ripped"
     n "He doesn't see his wife"
     n "He tries to find her and yell her name but he can't find her"
@@ -87,18 +99,20 @@ label husbandAwakesInForest:
     
     menu:
         "He returns to village hoping his wife is still there alive":
-            jump returnToVillage
+            jump husbandReturnVillage
             
         "He continues search his wife in the forest":
-            jump searchForest
+            jump husbandSearchForest
             
         "He starts climbing up to mountain side towards the castle":
-            jump searchMountainSide
+            jump husbandSearchMountainSide
             
-label returnToVillage:
+label husbandReturnVillage:
     
     scene black
-    show village at top
+    show village at top with dissolve
+    
+    pause 1
     
     n "When husband arrives in village, villagers starts gather around him"
     n "They are scared of his looks"
@@ -112,15 +126,17 @@ label returnToVillage:
     
     menu:
         "He rises from the ground and start to run from his life towards the forest":
-            jump leaveTown
+            jump husbandLeaveTown
         
         "He rises from the ground and start to run deeper into village":
-            jump findInn
+            jump husbandFindInn
 
-label searchForest:
+label husbandSearchForest:
     
     scene black
-    show tree at top
+    show tree at top with dissolve
+    
+    pause 1
     
     n "He wanders to small glade, a huge old oak in the center"
     n "There are people gathered around the tree"
@@ -135,15 +151,21 @@ label searchForest:
             # refers to first jump labels from chase label
             $ lblChaseSuccess = 1
             $ lblChaseFailure = "chaseFailureForestPeople"
+            play music "audio/music/Dominate loop.wav" loop
             jump chase
             
         "He can hear his heart bounding but he force himself to greet the people":
-            jump greetForestPeople
+            jump husbandGreetForestPeople
             
-label manEscapesForestPeople:
+label chaseSuccessForestPeople:
+    
+    stop music fadeout 4.0
+    play music "audio/music/Tribal Ritual.wav" loop fadein 4.0
     
     scene black
-    show castle at top
+    show castle at top with dissolve
+    
+    pause 1
     
     n "He run for his life through the forest"
     n "Finally he thinks he lost the chasers"
@@ -152,43 +174,58 @@ label manEscapesForestPeople:
     n "He decide to go in"
     n "He see a old man standing in hallway, like he was waiting him"
         
-    $ attack = 1 # set dialog weight for attacking
+    $ dialogAttack = 1 # set dialog weight for attacking
     jump dialog1
     
     
 label chaseFailureForestPeople:
     
-    scene black
-    show mountain at top
+    stop music fadeout 4.0
+    play music "audio/music/Tribal Ritual.wav" loop fadein 4.0
     
-    n "Husband get caught"
-    n "People take him to mountains"
+    scene black with dissolve
+    
+    pause 1
+       
+    n "They are just too quick for him"
+    n "They bring him down"
+    n "People speaks and yells frantically to him and to each other"
+    n "Husband can't understand what they are saying"
+    n "He just lay on the ground waiting for the last hit taking his life away"
+    n "But for his suprise people lift him up and start to push him forward"
+    n "They begin to climb up to mountain"
     
 label husbandIsTakenToCastle:
     
     scene black
-    show castle at top
+    show castle at top with dissolve
+    
+    pause 1
     
     n "They arrive at the very old castle covered by vegetation"
     n "They go in and there's a old man sitting in the room"    
     
-    $ join = 1 # set dialog weight for joining
+    $ dialogJoin = 1 # set dialog weight for joining
     jump dialog1
 
-label searchMountainSide:
-    
+label husbandSearchMountainSide:
+
     scene black
-    show mountain at top
+    show mountain at top with dissolve
+    
+    pause 1
     
     n "He search and climbs higher and higher"
     n "But he can't find his wife"
     n "He begin to be close to castle"
     n "He can see a intimitating figure of it"
     
-label castleMan:
+label husbandCastleOldMan:
 
     scene black
-    show castle at top
+    show castle at top with dissolve
+    
+    pause 2
     
     n "He arrives at castle"
     n "Trying to find his wife without success"
@@ -199,7 +236,7 @@ label castleMan:
     jump dialog1
         
 
-label leaveTown:
+label husbandLeaveTown:
 
     scene black
     show village2 at top
@@ -209,58 +246,68 @@ label leaveTown:
     
     menu:
         "He tries to search his wife in the forest":
-            jump searchForest
+            jump husbandSearchForest
             
         "He start climbing on mountain side hoping to get better view":
-            jump searchMountainSide
+            jump husbandSearchMountainSide
             
-label findInn:
+label husbandFindInn:
     
     scene black
     show village at top
     
     n "He manages to lost villagers who followed him"
-    n "Finally he finds the inn on goes in"
+    n "Finally he finds the inn and goes in"
     n "There's a innkeeper and he looks very suprised to see you"
     
     jump dialog5
 
-label greetForestPeople:
+label husbandGreetForestPeople:
     
     scene black
-    show tree2 at top
+    show tree2 at top with dissolve
+    
+    pause 1
     
     n "People gather around him, touching him and communicating with each other"
     n "They gather wood from old oak and build a big fire"
     n "They start dancing and singing wildly around a fire"
     n "Husband join the dance and they dance all night"
-    n "Strong feeling begins to take a grip from husband, stronger and stronger"
-    n "He start to feel a strong wilderness in you which grows higher in every moment"
+    n "Strong feeling begins to take a grip from husband, gettting stronger and stronger"
+    n "He start to feel a strong wilderness in him which grows higher in every moment"
     n "Dance goes wilder and wilder"
-    n "At dawn the fire have turned to embers"
+
+label husbandChangeToBeast:
+
+    scene black with dissolve
+    n "At dawn the fire have turned to embers"    
+    
+label beast:
+    scene black with dissolve
+    show man at top
+    
+    $ manInBeastForm = True
+    
+    pause 1
+    
     n "Husband stands whole awake breathing fresh morning air into his lungs eagerly"
     n "The blood is rushing in his veins like never before"
     n "He have never been so awake, so full of life"
-    n "His instincts have become supernatural"
-    n "He feels stronger that never before"
-    n "His eyes sharp as eagle's"
-    n "Vigour as wolf"
+    n "His instincts have become sharp as a predator's"
     n "Smelling thousands of scents"
     n "Hearing even tiniest crack"
-    n "He feels like a wildest animal, like a alpha wolf in the pack"
+    n "He feels like a wildest animal"
     n "He can smell the scent of his wife"
-    n "As the scent comes in the rush of adreline hits in"
+    n "A rush of adreline hits him"
     n "He starts to run like a jaguar following that scent"
-    
-    $ manInBeastForm = True
         
-label village:
+label villageBeast:
     
     scene black
     show village at top
     
     n "The scent leads him back to village"
-    n "He follows the scent deeper"
+    n "He follows it deeper into village"
     n "He hears and smells the villagers and avoids to encounter with them"
     n "Village dogs starts to bark and howl, horses goes uneasy, every animal senses a beast"
     n "Villagers starts to gather wondering what hits the animals"
@@ -275,23 +322,23 @@ label village:
 
 label attackInnKeeper:
     
-    n "Straight away men sees husband's fierceful eyes, fear grips their heart"
+    n "As men sees husband's fierceful eyes, fear grips their heart"
     n "They rush out from the shed yelling and screaming for help"
     n "Husband charges after them"
-    n "Men run onto street where other villagers have began to search the cause of making animals goes so nervous"
+    n "Men run onto street where other villagers have began to search what is causing the nervousness of animals"
     n "They see the beastly husband chasing fellow villagers"
     n "Armed with pitchforks and tools they charge towards the husband"
     n "He fights wildly slaying many villagers but more keep coming and charging"
     n "Finally villagers manage to knock the husband on the ground and chain him up"
-    n "Villagers gathers around him yelling and beating him with everything they got into their hands"
+    n "Villagers gathers around him yelling and beating him with everything they have at their hands"
     
 label blackness:
 
     scene black with dissolve
     
-    pause 2
+    pause 1
     
-    n "In the shed woman starts to get conscious"
+    n "In the shed woman is starting to get conscious"
     n "She hear a lot of sceaming and yelling, dogs barking and howling"
     n "She rises and leaves the shed"
     n "Just before voices are starting to approach"
@@ -306,9 +353,9 @@ label playAsWoman:
     scene black
     show woman at top with fade
     
-    pause 3
+    pause 5
     
-label playAsWoman:
+label playAsWoman2:
     
     scene black
     show village at top with dissolve
@@ -335,7 +382,7 @@ label playAsWoman:
 label attackOldWoman:
     
     scene black
-    show village at top
+    show village at top with dissolve
     
     n "She charge towards the old woman"
     n "Woman tries to turn and run away, screaming out loud"
@@ -345,9 +392,9 @@ label attackOldWoman:
     n "She realizes escaping is too late now"
     n "People rushing to the alley and charging to wife"
     n "Quickly they tide her down and drag her to the street next to her husband"
-    n "Old woman is lead there all bloody and badly beaten"
-    n "People get more furious looking to be in rage"
-    n "They drag the man and the woman violently onto quickly build bonfire tiding them onto poles"
+    n "Old woman is lead there all bloody and beaten"
+    n "People get more furious when they see her condition"
+    n "They drag the man and the woman violently onto quickly build bonfire, tiding them onto poles"
     n "They light up the bonfire and flames start to rise, licking both of them"
     n "Pain rises towards unbearable state"
     n "They scream, they beg for mercy but no one listens"
@@ -358,13 +405,13 @@ label attackOldWoman:
     
 label castleWomanEscape:
     
-    scene black
-    show castle at top    
+    scene black with dissolve
     
-    n "Running away for her life he manage to get out of village"
-    n "She just keeps running ending up to castle"
-    n "There she finds an old man"
-    
+    n "Running away for her life, she manage to get out of the village"
+    n "She continue running until she's too tired to go on"
+    n "When she looks around her she sees an old castle rising on mountainside above her"
+    n "She decide to go explore it"
+        
     jump dialog2
     
 label oldWoman:
@@ -373,24 +420,37 @@ label oldWoman:
     show village at top
     
     n "Fear in the old woman's eyes start to change to warmth and kindness"
-    n "She smiles at you, goes to the door, opens it and waves to wife to follow her inside"
-    n "Inside she show drawings from village history"
-    n "There are drawings of villagers and people which seems to live in forest"
-    n "There seems to be hostility between them"
-    n "Woman draws a small map leading to a castle"
-    n "She gives an amulet to the wife and points the castle on map"
-    n "Wife try to explain that she need help to rescue her husband"
-    n "Woman just points to map and show the direction"
+    n "She smiles at her, goes to the door, opens it and waves to follow her inside"
+    n "Inside she starts to speak her about village history"
+    n "There have been violence and fear building up among the years"
+    n "A long time ago there was a man living in a castle nearby"
+    n "He worshipped nature and lived among the animals"
+    n "His methods were peaceful but looked odd for outsider"
+    n "Some villagers were against his ways"
+    n "Some were interested"
+    n "Stories from the man growth and got wilder"
+    n "Affecting more to villagers"
+    n "Seperating them more"
+    n "At the end some villagers left to castle and never came back"
+    n "Villagers who stayed started to see castle as evil place where were practiced dark arts"
+    n "They began to fear the place and the forest"
+    n "Warning their children never to go there"
+    n "Or a forest beast takes them"
+    n "Old woman tells that she was one of the villagers who went into the castle"
+    n "They practiced the lifestyle of the man"
+    n "And together they learned how to become one with the forest"
+    n "Merging to it"
+    n "Learning from nature's harmony between all living"
+    n "From cycle of death and birth"
+    n "Studying the animalistic side inside them"
+    n "Learning sincerity from their sincerity"
+    n "From their presence in every moment"    
+    n "And finally they released their inner animal free"
+    n "Later woman returned to village and continued her living and practising in quiet"
+    n "He tells to wife to go to castle and seek help from there"
+    n "She gives an amulet to wife telling to give it to old man living there"
+    n "It will get him convinced and to help her"
     n "Without better plan, wife decide to go to that castle" 
     
-    jump dialog2
-    
-label castleWoman:
-    
-    scene black
-    show castle at top
-    
-    n "She takes the map and the amulet and leaves"
-    n "She finds the castle and an old man in there" 
-    
-    # DIALOG 2 
+    $ womanHaveAmulet = True
+    jump dialog2    

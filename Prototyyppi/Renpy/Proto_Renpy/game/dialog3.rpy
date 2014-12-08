@@ -1,13 +1,16 @@
 label dialog3:
     
+    scene black
+    show village at top
+    
     n "A boy playing near the village suddenly sees a man coming from a forest, then another"
     n "After a while there are dozens of people all approaching the village"
     n "They are naked covered in dirt"
     n "They remind him of animals"
     n "Boy get scared and runs into village yelling \"The beasts of forest are coming to kill us!\""
     n "Villagers gather around the boy wondering what he means"
-    n "At the time forest people enter into village and they all see them"
-    n "All hell breaks loose when people scream in fear, yell in anger or run everywhere trying to hide or find something for weapon"
+    n "At the time forest people enters into village and they all see them"
+    n "All hell breaks loose: people scream in fear, yell in anger or run everywhere trying to hide or find something for a weapon"
     n "Village leader appears to calm down people and trying to communicate with those wild looking people"
     n "The old man comes from among the forest people and they start a conversation"
     
@@ -33,26 +36,26 @@ label dialog3:
     n "They agree to search the inn if wife can be found"
     n "Husband can't but follow the crowd"
     n "They search the inn but all rooms looks clean and unoccupied"
-    n "innkeeper tells that there's no one staying in at the moment"
+    n "Innkeeper tells that there's no one staying in at the moment"
     n "Village leader and old man looks to husband and tells that there's nothing more they can do"
     n "People from each group starts to accuse each other from kidnapping"
     n "Tension is about to burst into flames"
     
     menu:
         "Husband tries to convince others that innkeeper is lying and hidin something":
-            jump accuse
+            jump dialog3Accuse
         
         "He runs out starting desperatelly seek and yell wifes name":
-            jump seek
+            jump dialog3Seek
         
-        "The tension of people and desperation from losing his wife the husband attacks against the innkeeper":
+        "The tension of people and desperation from losing his wife, the husband attacks against the innkeeper":
             jump dialog3Attack
         
-label accuse:
+label dialog3Accuse:
     
     n "Old man believes the husband have no reason to make up such accusation"
     om "Why would he accuse that man otherwise which he clearly doesn't know"
-    n "Village leader is furious to them still keep accusing his fellow villager after he proofed that inn is empty"
+    n "Village leader is furious to them still keep accusing his fellow villager after he proofed that the inn is empty"
     vl "You come here with these man-beasts accusing an innocent man!"
     n "That gives a last spark which explodes the tension into furious fight"
     n "The fight is hard and is over quickly"
@@ -60,9 +63,13 @@ label accuse:
     n "Rest of people continuing their living in their style"
     n "Gaining nothing but a story to warn their children about a danger lurking nearby"
     
+    scene black with dissolve
+    pause 2
+    
+    n "The end"    
     return
     
-label seek:
+label dialog3Seek:
     
     n "The husband runs to backyard leaving people yell to each other"
     n "He starts to yell his wife name"
@@ -74,7 +81,7 @@ label seek:
     n "A soft memory of her voice warming him"
     n "His eyes quickly spreads wide open"
     n "He can actually hear her voice!"
-    n "He sees a barn next to him"
+    n "He sees a shed next to him"
     n "Rushes on the door and brakes the door in"
     n "His wife is laying on the floor"
     n "Bloody and beaten but still alive"
@@ -87,6 +94,12 @@ label seek:
     n "And starts hitting them until they both lays on the floor silent"
     n "Both holding each other"
     n "Finally together"
+    
+    scene black with dissolve
+    show woman at left with dissolve
+    show man at right with dissolve
+    
+    pause 2
     
     n "The end"
     return
@@ -112,9 +125,12 @@ label dialog3Attack:
     n "Put the key on the lock and opens it"
     n "Inside he sees his wife lying on the floor unconscious"
     n "All numb from the bloodbath and sudden reunion with his wife"
-    n "He lift her on his arms"
+    n "He lift her onto his arms"
     n "And start walking away from the village"
-    n "Leaving a blood droppings behind"
+    n "Leaving only a blood droppings behind"
+    
+    scene black with dissolve
+    pause 2
     
     n "The end"
     return
