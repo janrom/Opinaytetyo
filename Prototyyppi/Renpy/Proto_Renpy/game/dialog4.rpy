@@ -1,4 +1,7 @@
 label dialog4:
+
+	scene black
+    show mountain2 at top with dissolve
      
     menu:
         "Husband points to old man and yells to villagers \"There's your which! The root of all evil! Slay him and you'll be free!\"":
