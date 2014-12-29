@@ -489,7 +489,7 @@
 				Husband hears voices outside the shed
 			</line>
 			<line s="n">
-				innkeeper rushes in with couple of men following him
+				Innkeeper rushes in with couple of men following him
 			</line>
 			<line s="n">
 				Husband attacks them with his beastly rage
@@ -870,6 +870,7 @@
 		</scene>
 
 		<scene id="dialog1Help1">			
+			<!-- not in use atm -->
 			<var name="dialogHelp" action="decrease" />
 			<line s="n">
 				Old man tells that they don't interfere with civilized world if they don't have to
@@ -881,6 +882,7 @@
 		</scene>
 				
 		<scene id="dialog1Help2">
+			<!-- not in use atm -->
 			<var name="dialogHelp" action="decrease" />
 			<line s="n">
 				Old man tells that they help their own people
@@ -1551,7 +1553,7 @@
 			<line s="n">
 				There is none irreversible happened
 			</line>
-			<line s="n">
+			<line s="w">
 				I can forgive you
 			</line>
 			<line s="n">
@@ -1789,7 +1791,7 @@
 				That's too bad for both of your sakes
 			</line>
 			<line s="n">
-				innkeeper rises his shovel
+				Innkeeper rises his shovel
 			</line>
 			<line s="n">
 				And starts hitting them until they both lays on the floor silent
@@ -2096,7 +2098,7 @@
 				Still faintly hearing innkeepers voice
 			</line>
 			<line s="ik">
-				"Don't worry. I'll take care of you're wife
+				Don't worry. I'll take care of you're wife
 			</line>
 			<line s="n">
 				Last thing the husband hears is the innkeeper's evil laughter
@@ -2136,7 +2138,7 @@
 				He sees the shed and force himself through the door
 			</line>
 			<line s="n">
-				He finds his wife lying on the floor unconscious"
+				He finds his wife lying on the floor unconscious
 			</line>
 			<line s="n">
 				She looks beaten
@@ -2206,7 +2208,7 @@
 		
 		<scene id="dialog6Peaceful">
 			<line s="vl">
-				"What are you talking about, who took your wife?
+				What are you talking about, who took your wife?
 			</line>
 			<line s="h">
 				Men attacked us in the inn last night, they attacked into our room and took my wife!
@@ -2324,7 +2326,7 @@
 				They see strange looking people standing at front of the castle
 			</line>
 			<line s="n">
-				Some villager yells "Look! Beasts are there like we've warned"
+				Some villager yells "Look! Beasts are there like we've warned
 			</line>
 			<line s="n">
 				They get nervous and scared, the lynch mood is changing into fear

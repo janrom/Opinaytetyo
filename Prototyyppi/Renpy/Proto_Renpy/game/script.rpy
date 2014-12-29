@@ -1,4 +1,10 @@
-﻿init:
+﻿python:
+    import renpygame # this pygame implementation uses renpygame-module
+    import renpygame as pygame
+    from renpygame.locals import * # renpygame import-style for pygame
+    pygame.init() #this turns pygame 'on'
+    
+init:    
     image black = "#000000"
     image village = "images/scans/village.jpg"
     image village2 = "images/scans/village2.jpg"

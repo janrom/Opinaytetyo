@@ -1,6 +1,6 @@
 label dialog4:
 
-	scene black
+    scene black
     show mountain2 at top with dissolve
      
     menu:

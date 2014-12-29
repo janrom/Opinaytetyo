@@ -34,8 +34,10 @@ label chase:
     hide borderBottom
     hide borderLeft
     
+    $result = True
+    
     #chaseRounds is declared at start-label
-    if chaseRounds > 0: 
+    if chaseRounds > 0 and result == True: 
         
         # randomBorder is declared at start-label
         $ randomBorder = renpy.random.randint ( 0 , 3 )
@@ -46,28 +48,34 @@ label chase:
             show borderLeft
             show borderRight
             show borderBottom
-            show screen borderTop
+            python:
+                result = chaseFunc( randomBorder )
+            #show screen borderTop
                 
         elif randomBorder == 1:
             $ chaseRounds -= 1  
             show borderLeft
             show borderTop
             show borderBottom
-            show screen borderRight
+            python:
+                result = chaseFunc( randomBorder )
+            #show screen borderRight
         
         elif randomBorder == 2:
             $ chaseRounds -= 1  
             show borderLeft
             show borderTop
             show borderRight
-            show screen borderBottom
+            $result = chaseFunc( randomBorder )
+            #show screen borderBottom
         
         elif randomBorder == 3:
             $ chaseRounds -= 1  
             show borderTop
             show borderRight
             show borderBottom
-            show screen borderLeft
+            $result = chaseFunc( randomBorder )
+            #show screen borderLeft
             
         pause
             
