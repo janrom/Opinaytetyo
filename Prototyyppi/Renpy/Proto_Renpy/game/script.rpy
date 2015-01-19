@@ -1,9 +1,9 @@
-﻿python:
+﻿init python:
     import renpygame # this pygame implementation uses renpygame-module
     import renpygame as pygame
     from renpygame.locals import * # renpygame import-style for pygame
     pygame.init() #this turns pygame 'on'
-    
+       
 init:    
     image black = "#000000"
     image village = "images/scans/village.jpg"
@@ -33,14 +33,10 @@ init:
             
 label start:
     ################################################################################################
-    # global variable
+    # global variables
     
     play music "audio/music/Tribal Ritual.wav" loop fadein 3.0
         
-    # stuff for chase label
-    $ chaseRounds = 5   # how many times border loop will run
-    $ randomBorder = 0  # determines which border to show
-    
     # defines next label to go depending if chase was success or not
     $ lblChaseSuccess = ""
     $ lblChaseFailure = ""    
@@ -156,7 +152,7 @@ label husbandSearchForest:
         "Fear hits him and he turns to run away in horror":
             # refers to first jump labels from chase label
             $ lblChaseSuccess = 1
-            $ lblChaseFailure = "chaseFailureForestPeople"
+            $ lblChaseFailure = 1
             play music "audio/music/Dominate loop.wav" loop
             jump chase
             
@@ -310,7 +306,7 @@ label beast:
 label villageBeast:
     
     scene black
-    show village at top
+    show village at top with dissolve
     
     n "The scent leads him back to village"
     n "He follows it deeper into village"
@@ -359,11 +355,12 @@ label playAsWoman:
     scene black
     show woman at top with fade
     
-    pause 5
+    pause 4
     
 label playAsWoman2:
     
-    scene black
+    scene black with dissolve
+    pause 1
     show village at top with dissolve
     
     n "She sneaks in the shadows of alley towards the voices coming from street"
@@ -405,6 +402,9 @@ label attackOldWoman:
     n "Pain rises towards unbearable state"
     n "They scream, they beg for mercy but no one listens"
     n "They burn at the stake, together"
+    
+    scene black with dissolve
+    pause 2
     
     n "The end"
     return

@@ -96,9 +96,6 @@ label dialog3Seek:
     n "Finally together"
     
     scene black with dissolve
-    show woman at left with dissolve
-    show man at right with dissolve
-    
     pause 2
     
     n "The end"
@@ -119,7 +116,7 @@ label dialog3Attack:
     n "He take a one last look of the bastard who caused all that misery to him"
     n "He sees a key on a string hanging on the innkeepers chest"
     n "It must had been hidden under his shirt"
-    n "Husband takes the key and leaves the room"
+    n "Without thinking husband takes the key and leaves the room"
     n "He walks outside and sees a shed on the backyard"
     n "He sees the key on his hand and walks to shed"
     n "Put the key on the lock and opens it"

@@ -1,0 +1,5 @@
+155633__gabemiller74__evil-laugh.wav is created by gabemiller74. It's downloaded from freesound.org ( https://www.freesound.org/people/gabemiller74/ )
+
+Dominate loop.wav and Tribal Ritual.wav is downloaded from DL Sounds ( http://www.dl-sounds.com ). Creators are unknown.
+
+All music files are free for use. More detailed license for Dominate loop and Tribal Ritual can be found at music folder ( game\audio\music ).

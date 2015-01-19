@@ -2,24 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/chase.rpy", line 51: invalid syntax
-    result = $chaseFunc( $randomBorder )
+File "game/chase.rpy", line 52: expected statement.
+    newRandom = True
               ^
-    
-
-File "game/chase.rpy", line 59: invalid syntax
-    result = $chaseFunc( $randomBorder )
-              ^
-    
-
-File "game/chase.rpy", line 67: invalid syntax
-    result = $chaseFunc( $randomBorder )
-              ^
-    
-
-File "game/chase.rpy", line 75: invalid syntax
-    result = $chaseFunc( $randomBorder )
-              ^
-    
 
 Ren'Py Version: Ren'Py 6.18.3.761

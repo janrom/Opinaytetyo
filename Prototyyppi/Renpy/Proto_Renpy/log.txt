@@ -1,11 +1,11 @@
-Sun Dec 28 17:48:43 2014
+Tue Jan 06 15:12:59 2015
 Windows-7-6.1.7601-SP1
 Ren'Py 6.18.3.761
 Proto_Renpy01 0.1
 
 
-Fullscreen mode.
-Screen sizes: virtual=(800, 600) physical=(1920, 1080)
+Windowed mode.
+Screen sizes: virtual=(800, 600) physical=(800, 600)
 Vendor: 'NVIDIA Corporation'
 Renderer: 'GeForce 210/PCIe/SSE2'
 Version: '3.3.0'
@@ -285,18 +285,8 @@ Texture testing:
 Performance test:
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
-- Frame drawn at 0.029000 seconds.
-- Frame drawn at 0.204000 seconds.
-- Frame drawn at 0.225000 seconds.
-- Frame drawn at 0.244000 seconds.
-- 0.244000 seconds to render 5 frames.
-Traceback (most recent call last):
-  File "D:\Omat_jutut\Opiskelu\AMK\4.Vuosi\Opinnäytetyö\IDEs\renpy-6.18.1-sdk\renpy\execution.py", line 294, in run
-    node.execute()
-  File "D:\Omat_jutut\Opiskelu\AMK\4.Vuosi\Opinnäytetyö\IDEs\renpy-6.18.1-sdk\renpy\ast.py", line 785, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "D:\Omat_jutut\Opiskelu\AMK\4.Vuosi\Opinnäytetyö\IDEs\renpy-6.18.1-sdk\renpy\python.py", line 1382, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/chase.rpy", line 60, in <module>
-    $result = chaseFunc( randomBorder )
-NameError: name 'chaseFunc' is not defined
+- Frame drawn at 0.009000 seconds.
+- Frame drawn at 0.030000 seconds.
+- Frame drawn at 0.044000 seconds.
+- Frame drawn at 0.061000 seconds.
+- 0.061000 seconds to render 5 frames.

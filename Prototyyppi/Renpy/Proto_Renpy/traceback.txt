@@ -1,24 +1,24 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/chase.rpy", line 60, in script
-    $result = chaseFunc( randomBorder )
-  File "game/chase.rpy", line 60, in <module>
-    $result = chaseFunc( randomBorder )
-NameError: name 'chaseFunc' is not defined
+  File "game/dialog1.rpy", line 12, in script
+    $ dialogHelp -= 1
+  File "game/dialog1.rpy", line 12, in <module>
+    $ dialogHelp -= 1
+NameError: name 'dialogHelp' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/chase.rpy", line 60, in script
-    $result = chaseFunc( randomBorder )
+  File "game/dialog1.rpy", line 12, in script
+    $ dialogHelp -= 1
   File "D:\Omat_jutut\Opiskelu\AMK\4.Vuosi\Opinnäytetyö\IDEs\renpy-6.18.1-sdk\renpy\ast.py", line 785, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "D:\Omat_jutut\Opiskelu\AMK\4.Vuosi\Opinnäytetyö\IDEs\renpy-6.18.1-sdk\renpy\python.py", line 1382, in py_exec_bytecode
     exec bytecode in globals, locals
-  File "game/chase.rpy", line 60, in <module>
-    $result = chaseFunc( randomBorder )
-NameError: name 'chaseFunc' is not defined
+  File "game/dialog1.rpy", line 12, in <module>
+    $ dialogHelp -= 1
+NameError: name 'dialogHelp' is not defined
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.18.3.761

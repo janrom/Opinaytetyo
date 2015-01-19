@@ -1,0 +1,51 @@
+	<scene id="chase">
+		<chase />				
+	</scene>
+	<scene id="top">
+			<set asset="right" image="right" />
+			<show asset="right" />
+			<set asset="bottom" image="bottom" />
+			<show asset="bottom" />
+			<set asset="left" image="left" />
+			<show asset="left" />
+			<textbox name="top" x="0" y="0" width="800" length="20"></textbox>
+			<script type="javascript">
+				top.onmouseover = top.background-color: blue;				
+			</script>			
+		</scene>
+		<scene id="right">
+			<set asset="top" image="top" />
+			<show asset="top" />
+			<set asset="bottom" image="bottom" />
+			<show asset="bottom" />
+			<set asset="left" image="left" />
+			<show asset="left" />
+			<textbox name="right" x="0" y="0" width="800" length="20"></textbox>
+			<script type="javascript">
+				right.onmouseover = top.background-color: blue;				
+			</script>			
+		</scene>
+		<scene id="bottom">
+			<set asset="top" image="top" />
+			<show asset="top" />
+			<set asset="right" image="right" />
+			<show asset="right" />
+			<set asset="left" image="left" />
+			<show asset="left" />			
+			<textbox name="bottom" x="0" y="0" width="800" length="20"></textbox>
+			<script type="javascript">
+				bottom.onmouseover = top.background-color: blue;				
+			</script>
+		</scene>
+		<scene id="left">
+			<set asset="top" image="top" />
+			<show asset="top" />
+			<set asset="right" image="right" />
+			<show asset="right" />
+			<set asset="bottom" image="bottom" />
+			<show asset="bottom" />			
+			<textbox name="left" x="0" y="0" width="800" length="20"></textbox>
+			<script type="javascript">
+				left.onmouseover = top.background-color: blue;				
+			</script>
+		</scene>

@@ -9,7 +9,7 @@ label dialog1:
             jump dialog1Join1
         
         "He beg for help rescuing his wife from the village":
-            $ dialogHelp -= 1
+            #$ dialogHelp -= 1 not in use atm
             jump dialog1Help1
         
         "He thinks it's an ambush and escapes from the castle":
@@ -40,7 +40,7 @@ label dialog1Join1:
             jump dialog1Join2
         
         "He promise if they can save her wife, they both will join them":
-            $ dialogHelp -= 1
+            #$ dialogHelp -= 1 not in use atm
             jump dialog1Help2
         
         "Man becomes angry: first they chase him and now they try to lure him in somekind of cult":
@@ -191,8 +191,7 @@ label dialog1Attack2:
         n "He turns away and start running from his life, trying to get back to village"
         
         $ lblChaseSuccess = 2
-        $ lblChaseFailure = "chaseFailureCastle"
-        $ chaseRounds = 5
+        $ lblChaseFailure = 2
         play music "audio/music/Dominate loop.wav" loop
         jump chase
         
@@ -218,7 +217,8 @@ label dialog1ChaseFailureCastle:
     
 label dialog1ChaseFailureCastle2:
     
-    scene village with dissolve
+    scene black
+    show village at top with dissolve
 
     n "Man beaten badly but still able to return to village"
     n "With no more thoughts in his mind than returning to his love one"

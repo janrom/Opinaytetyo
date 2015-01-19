@@ -36,9 +36,8 @@ label dialog5Suspicious:
     n "Innkeeper takes a big knife under a desk and attacks towards the husband"
         
     $ lblChaseSuccess = 3
-    $ lblChaseFailure = "manLoseInnkeeper"
+    $ lblChaseFailure = 3
     # TODO: replace this with fighting system
-    $ chaseRounds = 5
     play music "audio/music/Dominate loop.wav" loop
     jump chase
         
@@ -54,10 +53,18 @@ label dialog5Room:
     ik "Don't worry. I'll take care of you're wife"
     n "Last thing the husband hears is the innkeeper's evil laughter"
     
+    play music "audio/155633__gabemiller74__evil-laugh.wav"
+    
+    scene black with dissolve
+    pause 2
+    
     n "The end"
     return
     
 label dialog5ManWinsInnkeeper:
+    
+    scene black
+    show village at top
     
     stop music fadeout 4.0
     play music "audio/music/Tribal Ritual.wav" loop fadein 4.0
@@ -75,10 +82,16 @@ label dialog5ManWinsInnkeeper:
     n "He takes her onto his arms and carry her away"
     n "Away from this cursed place"
     
+    scene black with dissolve
+    pause 2
+    
     n "The end"
     return
     
 label dialog5ManLoseInnkeeper:
+    
+    scene black
+    show village at top
     
     stop music fadeout 4.0
     play music "audio/music/Tribal Ritual.wav" loop fadein 4.0
@@ -89,6 +102,9 @@ label dialog5ManLoseInnkeeper:
     n "Innkeeper looks at him with his eyes wide open"
     n "Laughing from satisfaction"
     n "As he sinks his blade into husbands heart"
+    
+    scene black with dissolve
+    pause 2
     
     n "The end"
     return

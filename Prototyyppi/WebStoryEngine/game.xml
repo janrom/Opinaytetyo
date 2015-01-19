@@ -1,0 +1,2429 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ws>
+    <settings>
+        <stage width="800px" height="600px" create="yes" center="yes" />
+
+		<triggers>
+			<trigger name="stk" event="keyup" key="ESCAPE" function="savegames" />
+			<trigger name="next_by_key_trigger" event="keyup" key="RIGHT_ARROW" special="next" />
+		</triggers>
+        
+    </settings>
+	
+<!-- ASSETS --> 
+	<assets>
+        
+		<textbox name="tb_main" width="780px" height="100px" x="10px" y="490px" namebox="yes" speed="0">
+			<nameTemplate>{name}</nameTemplate>
+		</textbox>
+		
+		<textbox cssid="tbChase" name="tb_chase" width="780px" height="100px" x="10px" y="490px" namebox="no" speed="0">			
+			<nameTemplate>{name}</nameTemplate>
+		</textbox>
+				    
+        <audio name="bgMusic" loop="true" fade="false">
+            <track title="background">
+                <source href="assets/audio/music/Tribal Ritual.ogg" type="ogg" />
+                <source href="assets/audio/music/Tribal Ritual.mp3" type="mp3" />
+            </track>
+        </audio>
+		
+		<audio name="chaseMusic" loop="true" fade="false">
+            <track title="chase">
+                <source href="assets/audio/music/Dominate loop.ogg" type="ogg" />                
+                <source href="assets/audio/music/Dominate loop.mp3" type="mp3" />                
+            </track>
+        </audio>	
+        
+        <character name="n" textbox="tb_main">
+			<displayName>Narrator</displayName>
+		</character>
+        <character name="h" textbox="tb_main">
+			<displayName>Husband</displayName>
+		</character>
+		<character name="w" textbox="tb_main">
+			<displayName>Wife</displayName>
+		</character>
+		<character name="om" textbox="tb_main">
+			<displayName>Old man</displayName>
+		</character>
+		<character name="ow" textbox="tb_main">
+			<displayName>Old woman</displayName>
+		</character>
+		<character name="vl" textbox="tb_main">
+			<displayName>Village leader</displayName>
+		</character>
+		<character name="c" textbox="tb_chase">
+			<displayName></displayName>
+		</character>
+		
+        <imagepack name="mountains">
+            <image name="mountain"	src="assets/images/scans/mountain.jpg" />
+            <image name="mountain2"	src="assets/images/scans/mountain2.jpg" />            
+        </imagepack>
+		
+		<imagepack name="trees">
+            <image name="tree" 	src="assets/images/scans/tree.jpg" />
+            <image name="tree2" src="assets/images/scans/tree2.jpg" />            
+        </imagepack>
+        
+		<imagepack name="villages">
+            <image name="village" 	src="assets/images/scans/village.jpg" />
+            <image name="village2" src="assets/images/scans/village2.jpg" />            
+        </imagepack>
+		
+		<imagepack name="castle">
+			<image name="castle" src="assets/images/scans/castle.jpg" />
+		</imagepack>
+		
+		<imagepack name="man">
+			<image name="man" src="assets/images/scans/man.jpg" />
+		</imagepack>
+		
+		<imagepack name="oneWithNature">
+			<image name="oneWithNature" src="assets/images/scans/oneWithNature.jpg" />
+		</imagepack>
+		
+		<imagepack name="unconscious">
+			<image name="unconscious" src="assets/images/scans/unconscious.jpg" />
+		</imagepack>
+		
+		<imagepack name="woman">
+			<image name="woman" src="assets/images/scans/woman.jpg" />		
+        </imagepack>
+			
+		<!-- border images -->
+		<imagepack name="borderTop" x="0px" y="0px">
+			<image  name="imgBorderTop" src="assets/images/borders/top2.png" />		
+        </imagepack>
+		<imagepack name="borderRight" x="700px" y="0px">
+			<image  name="imgBorderRight" src="assets/images/borders/right2.png" />		
+        </imagepack>
+		<imagepack name="borderBottom" x="0px" y="500px"> 
+			<image  name="imgBorderBottom" src="assets/images/borders/bottom2.png" />		
+        </imagepack>
+		<imagepack name="borderLeft" x="0px" y="0px">
+			<image  name="imgBorderLeft" src="assets/images/borders/left2.png" />		
+        </imagepack>
+		
+    </assets>
+	
+<!-- SCENES -->
+	<scenes>		
+        <scene id="start">
+		
+			<!-- dialog category anwers
+			 categories determines which story branch is selected
+			 the number presents how many times player needs to select that category answer to be activated
+			 ie. player answer 2 time from help category, then helping branch of story is selected
+			 2 = default, 1 = weighting in that category -->
+			<var name="dialogAttack" value="2"></var>
+			<var name="dialogJoin" value="2"></var>
+			<!-- dialogHelp = 2 not in use atm -->
+			
+			<!-- story flags -->
+			<var name="manInBeastForm" value="False"></var>		
+			<var name="womanHaveAmulet" value="False"></var>				
+			
+			<!-- uncomment these to play background music -->
+			<!--<set asset="bgMusic" track="background" />-->
+			<!--<play asset="bgMusic" />-->
+			
+			<show asset="tb_main" />			
+			<line s="n">
+				Let me tell you a story which happened here a long time ago
+			</line>
+			<line s="n">
+				The story is about a wandering couple who looked a shelter from a local village inn
+			</line>			
+			<set asset="villages" image="village" />
+			<show asset="villages" />			
+			<line s="n">
+				After a long and weary travel, a man and a woman finally saw a landscape which entwined a little village inside
+			</line>
+			<line s="n">
+				They headed into inn and rent a room for a night
+			</line>
+			<line s="n">
+				After a bath and a warm meal they fall into sleep
+			</line>
+			<line s="n">
+				At the middle of the night, man suddenly awakes for a scream of her wife
+			</line>
+			<line s="n">
+				He saws a punch of men in the room tiding the wife down
+			</line>
+			<line s="n">
+				Husband charges towards the men
+			</line>
+			<line s="n">
+				He fight hard and brave but there are just too many of them
+			</line>
+			<line s="n">
+				They knock husband down and he falls in unconsciousness
+			</line>
+			<line s="n"></line>
+			<hide asset="villages" />
+			<set asset="unconscious" image="unconscious" />
+			<show asset="unconscious" />
+			<wait duration="2000" />
+			<hide asset="unconscious" />			
+			<set asset="villages" image="village2" />
+			<show asset="villages" />
+			<wait duration="1500" />
+			<line s="n">
+				Husband begins to gain his consciousness opening his eyes
+			</line>
+			<line s="n">
+				He is badly beaten with his clothes ripped
+			</line>
+			<line s="n">
+				He doesn't see his wife
+			</line>
+			<line s="n">
+				He tries to find her and yell her name but he can't find her
+			</line>
+			<line s="n">
+				From the hill he sees that same village down a valley
+			</line>
+			<line s="n">
+				To other direction land is rising up towards a mountain
+			</line>
+			<line s="n">
+				There's a old castle high on mountain side
+			</line>			
+			<choice>
+				<option label="He returns to village hoping his wife is still there alive" scene="husbandReturnVillage"></option>
+				<option label="He continues search his wife in the forest" scene="husbandSearchForest"></option>
+				<option label="He starts climbing up to mountain side towards the castle" scene="husbandSearchMountainSide"></option>
+			</choice>			
+		</scene>
+		
+		<scene id="husbandReturnVillage">			
+			<set asset="villages" image="village" />			
+			<line s="n">
+				When husband arrives in village, villagers starts gather around him
+			</line>
+			<line s="n">
+				They are scared of his looks
+			</line>
+			<line s="n">
+				Somebody starts to yell at him
+			</line>
+			<line s="n">
+				Some other throws a rock towards him
+			</line>
+			<line s="n">
+				Others starts joining them, becoming more rude all the time
+			</line>
+			<line s="n">
+				Husband tries to explain but nobody seems to understand him
+			</line>
+			<line s="n">
+				Somebody charges him hitting with a pole
+			</line>
+			<line s="n">
+				Husband fells on the ground getting a bleeding wound from the hit
+			</line>
+			<line s="n">
+				People are getting into rage
+			</line>			
+			<choice>
+				<option label="He rises from the ground and start to run from his life towards the forest" scene="husbandLeaveTown"></option>
+				<option label="He rises from the ground and start to run deeper into village" scene="husbandFindInn"></option>				
+			</choice>			
+			<hide asset="villages" />			
+		</scene>
+		
+		<scene id="husbandSearchForest">
+			<set asset="villages" image="village" />
+			<hide asset="villages" />		
+			<set asset="trees" image="tree" />
+			<show asset="trees" />			
+			<line s="n">			
+				He wanders to small glade, a huge old oak in the center
+			</line>
+			<line s="n">
+				There are people gathered around the tree
+			</line>
+			<line s="n">
+				They don't have clothes, a thick dirt covering their skin
+			</line>
+			<line s="n">
+				They look like a people but their behauvior reminds more of a animal
+			</line>
+			<line s="n">
+				Someone spots him and screams alarming the others
+			</line>
+			<line s="n">
+				Everyone nails their eyes on husband, silent surrounds the glade
+			</line>
+			<line s="n">
+				People starts to approach the husband
+			</line>				
+			<!--
+				# refers to first jump labels from chase label
+				$ lblChaseSuccess = 1
+				$ lblChaseFailure = "chaseFailureForestPeople"
+				play music "audio/music/Dominate loop.wav" loop
+			-->			
+			<choice>
+				<!-- CHANGE FIRST OPTION TO chase -->
+				<option label="Fear hits him and he turns to run away in horror" scene="initChase"></option>
+				<option label="He can hear his heart bounding but he force himself to greet the people" scene="husbandGreetForestPeople"></option>
+			</choice>						
+		</scene>
+		
+		<!-- init javascript variables used in chase scene -->
+		<scene id="initChase">
+			<line s="c">
+				<script type="text/javascript">
+					// start counting time in milliseconds
+					var startTime = new Date().getTime();
+					var endTime = 0;
+					var passedTime = 0;
+									
+					// how many times chase function will be called on successful onmouseover-event
+					var chaseCounter = 0;
+				</script>
+			</line>
+			
+			<goto scene="chase" />
+		</scene>
+		
+		<!-- CHASE -->
+		<scene id="chase">
+		
+			<line s="c">
+				<script type="text/javascript">
+					function() { setImages };
+				</script>
+			</line>
+		
+			<!-- show all image elements, ones visibility is hidden-->
+			<set asset="borderTop" image="imgBorderTop"/>
+			<show asset="borderTop" />
+			<set asset="borderRight" image="imgBorderRight" />
+			<show asset="borderRight" />
+			<set asset="borderBottom" image="imgBorderBottom" />
+			<show asset="borderBottom" />
+			<set asset="borderLeft" image="imgBorderLeft" />
+			<show asset="borderLeft" />
+			
+			<line s="c">
+				<script type="text/javascript">
+					function() { chase }
+					function() { chaseCheck }
+				</script>
+			</line>
+			
+			
+		</scene>
+		
+		
+		
+		<scene id="chaseSuccessForestPeople">
+			<!--
+			stop music fadeout 4.0
+			play music "audio/music/Tribal Ritual.wav" loop fadein 4.0
+			-->
+			<hide asset="trees" />			
+			<line s="n">    
+				He run for his life through the forest
+			</line>
+			<line s="n">
+				Finally he thinks he lost the chasers
+			</line>
+			<line s="n">
+				He stops to take a breath and looks around him
+			</line>
+			<set asset="castle" image="castle" />
+			<show asset="castle" />
+			<line s="n">
+				There's a castle rising in front of him
+			</line>
+			<line s="n">
+				He decide to go in
+			</line>
+			<line s="n">
+				He see a old man standing in hallway, like he was waiting him
+			</line>			
+			<var name="dialogAttack" action="decrease" />
+			<goto scene="dialog1" />						
+		</scene>
+		
+		<scene id="chaseFailureForestPeople">    
+			<!--
+			stop music fadeout 4.0
+			play music "audio/music/Tribal Ritual.wav" loop fadein 4.0
+			-->			
+			<hide asset="trees" />
+			<line s="n">
+				They are just too quick for him
+			</line>
+			<line s="n">
+				They bring him down
+			</line>
+			<line s="n">
+				People speaks and yells frantically to him and to each other
+			</line>
+			<line s="n">
+				Husband can't understand what they are saying
+			</line>
+			<line s="n">
+				He just lay on the ground waiting for the last hit taking his life away
+			</line>
+			<line s="n">
+				But for his suprise people lift him up and start to push him forward
+			</line>
+			<set asset="mountains" image="mountain" />
+			<show asset="mountains" />
+			<line s="n">
+				They begin to climb up to mountain
+			</line>
+			<hide asset="mountains" />			
+			<set asset="castle" image="castle" />
+			<show asset="castle" />			
+			<line s="n">
+				They arrive at the very old castle covered by vegetation
+			</line>
+			<line s="n">
+				They go in and there's a old man sitting in the room
+			</line>
+			<var name="dialogJoin" action="decrease" />
+			<goto scene="dialog1" />								
+		</scene>
+
+		<scene id="husbandSearchMountainSide">		
+			<set asset="villages" image="village" />
+			<hide asset="villages" />
+			<set asset="mountains" image="mountain" />
+			<show asset="mountains" />			
+			<line s="n">
+				He search and climbs higher and higher
+			</line>
+			<line s="n">
+				But he can't find his wife
+			</line>
+			<line s="n">
+				He begin to be close to castle
+			</line>
+			<line s="n">
+				He can see a intimitating figure of it
+			</line>		
+			<hide asset="mountains" />
+			<set asset="castle" image="castle" />
+			<show asset="castle" />			
+			<line s="n">
+				He arrives at castle
+			</line>
+			<line s="n">
+				Trying to find his wife without success
+			</line>
+			<line s="n">
+				Suddenly he is aware of presens of somebody
+			</line>
+			<line s="n">
+				Old man appears from shadows
+			</line>
+			<line s="n">
+				He stares at husband with his sharp eyes in silence
+			</line>						
+			<goto scene="dialog1" />        
+		</scene>
+
+		<scene id="husbandLeaveTown">		
+			<set asset="villages" image="village2" />
+			<show asset="villages" />			
+			<line s="n">
+				People quit the chase after he reach the woods
+			</line>
+			<line s="n">
+				They seems to be too afraid to continue
+			</line>						
+			<choice>
+				<option label="He tries to search his wife in the forest" scene="husbandSearchForest"></option>			
+				<option label="He start climbing on mountain side hoping to get better view" scene="husbandSearchMountainSide"></option>
+			</choice>			
+		</scene>
+				
+		<scene id="husbandFindInn">		
+			<set asset="villages" image="village" />		
+			<show asset="villages" />
+			<line s="n">
+				He manages to lost villagers who followed him
+			</line>
+			<line s="n">
+				Finally he finds the inn and goes in
+			</line>
+			<line s="n">
+				There's a innkeeper and he looks very suprised to see you
+			</line>			
+			<hide asset="villages" />		
+			<goto scene="dialog5" />
+		</scene>
+
+		<scene id="husbandGreetForestPeople">		
+			<set asset="trees" image="tree2" />
+			<show asset="trees" />		
+			<line s="n">
+				People gather around him, touching him and communicating with each other
+			</line>
+			<line s="n">
+				They gather wood from old oak and build a big fire
+			</line>
+			<line s="n">
+				They start dancing and singing wildly around a fire
+			</line>
+			<line s="n">
+				Husband join the dance and they dance all night
+			</line>
+			<line s="n">
+				Strong feeling begins to take a grip from husband, gettting stronger and stronger
+			</line>
+			<line s="n">
+				He start to feel a strong wilderness in him which grows higher in every moment
+			</line>
+			<line s="n">
+				Dance goes wilder and wilder
+			</line>			
+			<hide asset="trees" />		
+		</scene>
+
+		<scene id="husbandChangeToBeast">
+			<line s="n">
+				At dawn the fire have turned to embers
+			</line>
+			<set asset="man" image="man" />
+			<show asset="man" />
+			<wait duration="2000" />
+			<hide asset="man" />		
+			<var name="manInBeastForm" set="True"></var>			
+			<line s="n">		
+				Husband stands whole awake breathing fresh morning air into his lungs eagerly
+			</line>
+			<line s="n">
+				The blood is rushing in his veins like never before
+			</line>
+			<line s="n">
+				He have never been so awake, so full of life
+			</line>
+			<line s="n">
+				His instincts have become sharp as a predator's
+			</line>
+			<line s="n">
+				Smelling thousands of scents
+			</line>
+			<line s="n">
+				Hearing even tiniest crack
+			</line>
+			<line s="n">
+				He feels like a wildest animal
+			</line>
+			<line s="n">
+				He can smell the scent of his wife
+			</line>
+			<line s="n">
+				A rush of adreline hits him
+			</line>
+			<line s="n">
+				He starts to run like a jaguar following that scent
+			</line>			
+			<hide asset="trees" />
+			<show asset="villages" />			
+			<line s="n">
+				The scent leads him back to village
+			</line>
+			<line s="n">
+				He follows it deeper into village
+			</line>
+			<line s="n">
+				He hears and smells the villagers and avoids to encounter with them
+			</line>
+			<line s="n">
+				Village dogs starts to bark and howl, horses goes uneasy, every animal senses a beast
+			</line>
+			<line s="n">
+				Villagers starts to gather wondering what hits the animals
+			</line>
+			<line s="n">
+				The scent leads him at small shed behind the inn
+			</line>
+			<line s="n">
+				He force himself trough the door and sees his wife laying on the ground
+			</line>
+			<line s="n">
+				Beaten and unconcsious
+			</line>
+			<line s="n">
+				Husband hears voices outside the shed
+			</line>
+			<line s="n">
+				Innkeeper rushes in with couple of men following him
+			</line>
+			<line s="n">
+				Husband attacks them with his beastly rage
+			</line>			
+			<goto scene="attackInnKeeper" />		
+		</scene>
+		
+		<scene id="attackInnKeeper">
+			<line s="n">
+				As men sees husband's fierceful eyes, fear grips their heart
+			</line>
+			<line s="n">
+				They rush out from the shed yelling and screaming for help
+			</line>
+			<line s="n">
+				Husband charges after them
+			</line>
+			<line s="n">
+				Men run onto street where other villagers have began to search what is causing the nervousness of animals
+			</line>
+			<line s="n">
+				They see the beastly husband chasing fellow villagers
+			</line>
+			<line s="n">
+				Armed with pitchforks and tools they charge towards the husband
+			</line>
+			<line s="n">
+				He fights wildly slaying many villagers but more keep coming and charging
+			</line>
+			<line s="n">
+				Finally villagers manage to knock the husband on the ground and chain him up
+			</line>
+			<line s="n">
+				Villagers gathers around him yelling and beating him with everything they have at their hands
+			</line>		
+			<hide asset="villages" />			
+			<line s="n">
+				In the shed woman is starting to get conscious
+			</line>
+			<line s="n">
+				She hear a lot of sceaming and yelling, dogs barking and howling
+			</line>
+			<line s="n">
+				She rises and leaves the shed
+			</line>
+			<line s="n">
+				Just before voices are starting to approach
+			</line>
+			<line s="n">
+				She slips into shadows of alley
+			</line>
+			<line s="n">
+				People appears from corner rushing into shed
+			</line>
+			<line s="n">
+				Yelling all things she can't understand
+			</line>
+			<line s="n">
+				Husband nowhere to be seen
+			</line>
+			<line s="n">
+				All alone in the darkness
+			</line>			
+			<set asset="woman" image="woman" />
+			<show asset="woman" />
+			<wait duration="2000" />
+			<hide asset="woman" />
+			<wait />
+			<show asset="villages" />
+			<line s="n">
+				She sneaks in the shadows of alley towards the voices coming from street
+			</line>
+			<line s="n">
+				On the street she sees her husband lying on the ground in chains
+			</line>
+			<line s="n">
+				He is beaten up and bloody
+			</line>
+			<line s="n">
+				There are also bodies lying on the ground
+			</line>
+			<line s="n">
+				Villagers have gathered around and they look furious, yelling and pointing to husband
+			</line>
+			<line s="n">
+				A man is talking loudly, trying to calm them
+			</line>
+			<line s="n">
+				While she follows the happening, trying figuring out how to safe her husband, a old woman comes to ally
+			</line>
+			<line s="n">
+				Lady spots her and freeze in fear, looking at her nervously
+			</line>
+			<choice>
+				<option label="She attacks to woman before she makes an alarm" scene="attackOldWoman"></option>				
+				<option label="She scares the woman and tries to escape" scene="castleWomanEscape"></option>							
+				<option label="She try to calm her hoping that woman is friendly" scene="oldWoman"></option>				
+			</choice>
+		</scene>
+				
+		<scene id="attackOldWoman">
+			<line s="n">
+				She charge towards the old woman
+			</line>
+			<line s="n">
+				Woman tries to turn and run away, screaming out loud
+			</line>
+			<line s="n">
+				Wife catch her, knocking her down and beating her desperately
+			</line>
+			<line s="n">
+				During the struggle, she hear a lots of voices from people approaching quickly 
+			</line>
+			<line s="n">
+				Old woman screams even louder than before and she can't get her quiet
+			</line>
+			<line s="n">
+				She realizes escaping is too late now
+			</line>
+			<line s="n">
+				People rushing to the alley and charging to wife
+			</line>
+			<line s="n">
+				Quickly they tide her down and drag her to the street next to her husband
+			</line>
+			<line s="n">
+				Old woman is lead there all bloody and beaten
+			</line>
+			<line s="n">
+				People get more furious when they see her condition
+			</line>
+			<line s="n">
+				They drag the man and the woman violently onto quickly build bonfire, tiding them onto poles
+			</line>
+			<line s="n">
+				They light up the bonfire and flames start to rise, licking both of them
+			</line>
+			<line s="n">
+				Pain rises towards unbearable state
+			</line>
+			<line s="n">
+				They scream, they beg for mercy but no one listens
+			</line>
+			<line s="n">
+				They burn at the stake, together
+			</line>
+			<line s="n">
+				The end
+			</line>			
+			<!-- starts the whole game from beginning -->
+			<!-- there are no load or main menu option available by default -->
+			<restart />		
+		</scene>
+		
+		<scene id="castleWomanEscape">		
+			<hide asset="villages" />
+			<set asset="mountains" image="mountain" />
+			<show asset="mountains" />			
+			<line s="n">
+				Running away for her life, she manage to get out of the village
+			</line>
+			<line s="n">
+				She continue running until she's too tired to go on
+			</line>
+			<line s="n">
+				When she looks around her she sees an old castle rising on mountainside above her
+			</line>
+			<line s="n">
+				She decide to go explore it
+			</line>				
+			<goto scene="dialog2" />
+		</scene>
+		
+		<scene id="oldWoman">
+			<line s="n">
+				Fear in the old woman's eyes start to change to warmth and kindness
+			</line>
+			<line s="n">
+				She smiles at her, goes to the door, opens it and waves to follow her inside
+			</line>
+			<line s="n">
+				Inside she starts to speak her about village history
+			</line>
+			<line s="n">
+				There have been violence and fear building up among the years
+			</line>
+			<line s="n">
+				A long time ago there was a man living in a castle nearby
+			</line>
+			<line s="n">
+				He worshipped nature and lived among the animals
+			</line>
+			<line s="n">
+				His methods were peaceful but looked odd for outsider
+			</line>
+			<line s="n">
+				Some villagers were against his ways
+			</line>
+			<line s="n">
+				Some were interested
+			</line>
+			<line s="n">
+				Stories from the man growth and got wilder
+			</line>
+			<line s="n">
+				Affecting more to villagers
+			</line>
+			<line s="n">
+				Seperating them more
+			</line>
+			<line s="n">
+				At the end some villagers left to castle and never came back
+			</line>
+			<line s="n">
+				Villagers who stayed started to see castle as evil place where were practiced dark arts
+			</line>
+			<line s="n">
+				They began to fear the place and the forest
+			</line>
+			<line s="n">
+				Warning their children never to go there
+			</line>
+			<line s="n">
+				Or a forest beast takes them
+			</line>
+			<line s="n">
+				Old woman tells that she was one of the villagers who went into the castle
+			</line>
+			<line s="n">
+				They practiced the lifestyle of the man
+			</line>
+			<line s="n">
+				And together they learned how to become one with the forest
+			</line>
+			<line s="n">
+				Merging to it
+			</line>
+			<line s="n">
+				Learning from nature's harmony between all living
+			</line>
+			<line s="n">
+				From cycle of death and birth
+			</line>
+			<line s="n">
+				Studying the animalistic side inside them
+			</line>
+			<line s="n">
+				Learning sincerity from their sincerity
+			</line>
+			<line s="n">
+				From their presence in every moment
+			</line>
+			<line s="n">
+				And finally they released their inner animal free
+			</line>
+			<line s="n">
+				Later woman returned to village and continued her living and practising in quiet
+			</line>
+			<line s="n">
+				He tells to wife to go to castle and seek help from there
+			</line>
+			<line s="n">
+				She gives an amulet to wife telling to give it to old man living there
+			</line>
+			<line s="n">
+				It will get him convinced and to help her
+			</line>
+			<line s="n">
+				Without better plan, wife decide to go to that castle
+			</line>			
+			<var name="womanHaveAmulet" value="True" />
+			<goto scene="dialog2" />
+		</scene>
+
+<!-- DIALOG 1 -->
+
+		<scene id="dialog1">					
+			<line s="n">
+				For suprise he start to speak in common language
+			</line>
+			<line s="n">
+				He asks what he can do for the man?
+			</line>			
+			<choice>
+				<option label="Man wonders who is he?" scene="dialog1Join1"></option>					
+				<option label="He beg for help rescuing his wife from the village" scene="dialog1Help1"></option>					
+				<option label="He thinks it's an ambush and escapes from the castle" scene="dialog1Escape"></option>				
+				<option label="He look at the old man suspiciously, wondering if he's one of the chasers" scene="dialog1Attack1"></option>					
+			</choice>
+		</scene>
+				
+		<scene id="dialog1Join1">
+			<var name="dialogJoin" action="decrease" />
+			<line s="n">
+				Old man tells about the castle and it's late owner
+			</line>
+			<line s="n">
+				Owner were practising somekind of nature livingstyle
+			</line>
+			<line s="n">
+				He lived with animals, becoming one of them in the end
+			</line>
+			<line s="n">
+				Old man tells that he and the people in the forest were following that knowledge
+			</line>
+			<line s="n">
+				Leaving civilation behind
+			</line>
+			<line s="n">
+				And becoming one with the nature again
+			</line>
+			<line s="n">
+				Old man says he was free to join them
+			</line>			
+			<line ifvar="dialogJoin" ifvalue="0" s="n">	
+				In desperation, too weary to fight on, he decides to join in hope of peace and safety for himself
+			</line>
+			<goto ifvar="dialogJoin" ifvalue="0" scene="dialog1Join3"/>
+			<!-- else branch if dialogJoin != 0 -->
+			<choice ifvar="dialogJoin" ifnot="0">
+				<option label="He wondered why would he join them" scene="dialog1Join2"></option>					
+				<option label="He promise if they can save her wife, they both will join them" scene="dialog1Help2"></option>					
+				<option label="Man becomes angry: first they chase him and now they try to lure him in somekind of cult" scene="dialog1Attack1"></option>					
+			</choice>
+		</scene>
+				
+		<scene id="dialog1Join2">
+			<var name="dialogJoin" action="decrease" />
+			<line s="n">
+				Old man tells how they live in harmony with nature
+			</line>
+			<line s="n">
+				How they learn from nature and animals
+			</line>
+			<line s="n">
+				How the lifestyle leaves the greed and anger behind
+			</line>
+			<line s="n">
+				Joining not seperating
+			</line>
+			<line s="n" ifvar="dialogJoin" ifvalue="0">				
+				In desperation, too weary to fight on, he decides to join in hope of peace and safety for himself
+			</line>
+			<goto ifvar="dialogJoin" ifvalue="0" scene="dialog1Join3"/>				
+			<choice ifvar="dialogJoin" ifnot="0">
+				<option label="Man decide to join them" scene="dialog1Join3"></option>									
+				<option label="He decide escape to village thinking if villagers will release his wife in change of this information" scene="dialog1Escape"></option>				
+				<option lable="He decide to attack, ending all these dark arts" scene="dialog1Attack1"></option>					
+			</choice>			
+		</scene>
+				
+		<scene id="dialog1Join3">
+			<hide asset="castle" />
+			<line s="n">
+				Old man starts a ceremony
+			</line>
+			<line s="n">
+				Husband feels his instincts growing stronger
+			</line>
+			<line s="n">
+				His senses getting sharper
+			</line>
+			<line s="n">
+				He can feel every moment like it's a water around him
+			</line>
+			<line s="n">
+				He join to pulse of nature
+			</line>
+			<set asset="oneWithNature" image="oneWithNature" />
+			<show asset="oneWithNature" />
+			<hide asset="tb_main" />
+			<wait duration="2000" />
+			<show asset="tb_main" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+
+		<scene id="dialog1Help1">			
+			<!-- not in use atm -->
+			<var name="dialogHelp" action="decrease" />
+			<line s="n">
+				Old man tells that they don't interfere with civilized world if they don't have to
+			</line>			
+			<choice>
+				<option label="He promise if they can save her wife, they both will join them" scene="dialog1Help2"></option>									
+				<option label="He threaten the old man by killing him if they won't help him" scene="dialog1Attack2"></option>					
+			</choice>
+		</scene>
+				
+		<scene id="dialog1Help2">
+			<!-- not in use atm -->
+			<var name="dialogHelp" action="decrease" />
+			<line s="n">
+				Old man tells that they help their own people
+			</line>
+			<line s="n">
+				So if one is captured in village they are willing to help
+			</line>			
+			<goto scene="dialog1Help3" />
+		</scene>
+			
+		<scene id="dialog1Help3">
+			<line s="n">
+				Old man calls people to castle and tells the situation to people
+			</line>
+			<line s="n">
+				They leave to village
+			</line>
+			<goto scene="dialog3" />
+		</scene>
+			
+		<scene id="dialog1Attack1">
+			<var name="dialogAttack" action="decrease" />
+			<line s="n">
+				Old man tells that he is one of the forest people, who chased him
+			</line>
+			<line s="n">
+				He tells that the people sees him as their leader
+			</line>
+			<line s="n">
+				But he thinks there have been misunderstanding because they don't want no harm to anyone
+			</line>
+			<line s="n" ifvar="dialogAttack" ifval="0">
+				He only hears that the old man is their leader
+			</line>
+			<line s="h" ifvar="dialogAttack" ifval="0">
+				He must be behind the chase
+			</line>
+			<line s="h" ifvar="dialogAttack" ifval="0">
+				If he's the leader, by killing him they will leave him alone
+			</line>
+			<line s="n" ifvar="dialogAttack" ifval="0">
+				He laughs hysterically when attacking the old man
+			</line>
+			<goto ifvar="dialogAttack" ifval="0" scene="dialog1Attack2" />
+			<choice>
+				<option label="Husband explains that his wife is captured by some villagers and he's seeking help for rescuing her" scene="dialog1Help1"></option>
+				<option label="He have heard enough of lies from this devious old man, it's time to end it!" scene="dialog1Attack2"></option>
+			</choice>
+		</scene>
+		
+		<scene id="dialog1Escape">
+			<hide asset="castle" />
+			<show asset="villages" />
+			<line s="n">
+				Man runs back to village
+			</line>
+			<line s="n">
+				People capture him and bring him to village leader
+			</line>
+			<line s="n">
+				Man tells everything about the castle, the old man and the people who chased him
+			</line>
+			<line s="n">
+				Leader tells about the castle and a dark forces of nature living there
+			</line>
+			<line s="n">
+				By hearing there's just a old man and a punch of wild unarmed people they decide to march there
+			</line>
+			<line s="n">
+				They take wife and husband with them, promisin to release them if all this is true and the evil can be defeated
+			</line>			
+			<goto scene="dialog4" />
+		</scene>	
+		
+		<scene id="dialog1Attack2">
+			<line s="n">
+				Man attacks to old man
+			</line>	
+			<line s="n">
+				Old man evades from attack with great agility
+			</line>
+			<line s="n">
+				Hes behaviour changes more animalistic
+			</line>
+			<goto ifvar="manInBeastForm" ifvalue="True" scene="sceneManInBeastForm" />
+			<line s="n">					
+				Staight away he attacks to old man he sees his agility and strength
+			</line>
+			<line s="n">
+				Old man fight like a tiger and he doesn't have a change to survive
+			</line>
+			<line s="n">
+				He turns away and start running from his life, trying to get back to village
+			</line>
+			<!-- REPLACE WITH CHASE IMPLEMENTATION: -->
+			<goto scene="sceneManInBeastForm" />
+			<!--
+			$ lblChaseSuccess = 2
+			$ lblChaseFailure = "chaseFailureCastle"
+			$ chaseRounds = 5
+			play music "audio/music/Dominate loop.wav" loop
+			jump chase
+			-->
+		</scene>
+		
+		<scene id="sceneManInBeastForm">
+			<line s="n">
+				They both fight like a beasts
+			</line>
+			<line s="n">
+				With a fierce and vigour of lions
+			</line>
+			<line s="n">
+				They roar and hit each other savagely
+			</line>
+			<line s="n">
+				But like an older tigers gets defeated from their younger contenders eventually
+			</line>
+			<line s="n">
+				The old man is getting weary and losing his strength
+			</line>
+			<line s="n">
+				Man knocks old man down and bites his teeth to old man's throath
+			</line>
+			<line s="n">
+				Biting until old man won't fight back anymore
+			</line>
+			<line s="n">
+				Until he just lay on the floor still
+			</line>
+			<line s="n">
+				Man rises from the floor blood dropping from his teeth
+			</line>
+			<line s="n">
+				The eyes like a predator's he have become one of them
+			</line>
+			<line s="n">
+				People have heard the fighting sounds and are gathering inside the castle seeing what have happened
+			</line>
+			<line s="n">
+				They see the predator
+			</line>
+			<line s="n">
+				Looking at them with hungry eyes
+			</line>
+			<line s="n">
+				Attacking them with a great roar
+			</line>
+			<line s="n">
+				Fighting against them like a wildest beast
+			</line>
+			<line s="n">
+				Until getting one wound too deep to carrying on the fighting
+			</line>
+			<line s="n">
+				The predator, former husband, lays on the floor next to the old man
+			</line>
+			<line s="n">
+				And takes his last breath
+			</line>
+			<hide asset="castle" />
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>			
+			<restart />			
+		</scene>
+				
+		<scene id="dialog1ChaseFailureCastle">			
+			<!--
+			stop music fadeout 4.0
+			play music "audio/music/Tribal Ritual.wav" loop fadein 4.0
+			-->
+			<hide asset="castle" />
+			<line s="n">
+				Other people join the chase
+			</line>
+			<line s="n">
+				Man run for his life, as hard as he can
+			</line>
+			<line s="n">
+				But he gets a hit which brings him down
+			</line>
+			<line s="n">
+				An instant people are all over him
+			</line>
+			<line s="n">
+				Like animals attacking the wounded prey
+			</line>
+			<line s="n">
+				They bite, claw and hit him
+			</line>
+			<line s="n">
+				Suddenly a loud yell stops them
+			</line>
+			<line s="n">
+				The old man comes above the man
+			</line>
+			<line s="n">
+				Rises him up saying "We don't kill living, even if it's hostile towards us"
+			</line>
+			<line s="om">
+				Let him go
+			</line>
+			<line s="om">
+				Maybe he learns a lesson about respecting life
+			</line>
+			<line s="n">
+				Then they leave
+			</line>
+			<show asset="villages" />
+			<line s="n">
+				Man beaten badly but still able to return to village
+			</line>
+			<line s="n">
+				With no more thoughts in his mind than returning to his love one
+			</line>
+			<line s="n">
+				Villagers sees the beaten, savage looking man
+			</line>
+			<line s="n">
+				Some yelling to him, some hitting him
+			</line>
+			<line s="n">
+				Man continues deeper in village, ignoring the villagers
+			</line>
+			<line s="n">
+				Villagers are gathering around him blocking his way
+			</line>
+			<line s="n">
+				Dogs are barking ready to attack him in any time
+			</line>
+			<line s="n">
+				A strong voice coming from behing of people they let a man come through
+			</line>
+			<line s="n">
+				He's the village leader
+			</line>
+			<goto label="dialog6" />
+		</scene>
+		
+		<scene id="dialog1ChaseSuccessCastle">
+			<!--
+			stop music fadeout 4.0
+			play music "audio/music/Tribal Ritual.wav" loop fadein 4.0
+			-->
+			<hide asset="castle" />
+			<line s="n">
+				He runs as fast as he can trough the forest
+			</line>
+			<line s="n">
+				More people joins to chase him
+			</line>
+			<line s="n">
+				But he is too fast for them
+			</line>
+			<show asset="villages" />
+			<line s="n">
+				At the edge of village chasers gives up
+			</line>
+			<line s="n">
+				Husband is safe from them
+			</line>
+			<line s="n">
+				When he stop to take a breath, he looks around him
+			</line>
+			<line s="n">
+				Seeing lot's of villagers watching him suspiciously
+			</line>
+			<line s="n">
+				He looks at himselft and sees that his clothes are all ripped, he's bloody and covered in dirt
+			</line>
+			<line s="n">
+				People are starting to yell at him but he doesn't understand them
+			</line>
+			<line s="n">
+				They surround him and start acting agressive towards him
+			</line>
+			<line s="n">
+				A strong voice coming from behing of people they let a man come through
+			</line>
+			<line s="n">
+				He's the village leader
+			</line>			
+			<goto scene="dialog6" />
+		</scene>				
+
+<!-- DIALOG 2 -->
+
+		<scene id="dialog2">
+			<hide asset="villages" />
+			<show asset="castle" />
+			<line s="n">
+				The castle looks very old
+			</line>		
+			<line s="n">
+				It's covered with vegetation
+			</line>		
+			<line s="n">
+				There's a lots of birds and small animals coming and going
+			</line>		
+			<line s="n">
+				Old man is standing near the gate feeding the animals
+			</line>		
+			<line s="n">
+				He spots the woman and wonders who is she
+			</line>		
+			<line s="n">
+				Wife explains about the villagers and her captured husband
+			</line>		
+			<line s="n">
+				She begs for help to help her rescuing her husband
+			</line>					
+			<goto ifvar="womanHaveAmulet" ifvalue="True" scene="sceneWomanHaveAmulet" />
+			<line s="n">
+				Old man tells that they don't interfere with civilized world if they don't have to
+			</line>
+			<line s="n">
+				A man comes to old man and speaks to him in language she doesn't understand
+			</line>
+			<line s="n">
+				Old man listens and thinks something awhile
+			</line>
+			<line s="om">
+				It seems that there have been a stranger participated one of our ritual
+			</line>
+			<line s="om">
+				He have got affected and left into village
+			</line>
+			<line s="om">
+				Consequences can be unpredictable for those who doesn't hold the knowledge how to control them
+			</line>
+			<line s="om">
+				So it seems that we have already interfered and now have to deal with the consequences
+			</line>
+			<line s="n">
+				Old man gathers people around and they leave to village
+			</line>
+			<hide asset="castle" />
+			<show asset="villages" />
+			<line s="n">
+				When they arrive, villagers are about to lit a bonfire the husband on it
+			</line>
+			<line s="n">
+				Villagers get scared of the arrivals
+			</line>
+			<line s="n">
+				Old man tries to calm them down telling they're came in peace
+			</line>
+			<line s="n">
+				Wife rushes to her husband trying to untide him
+			</line>
+			<line s="n">
+				The air is full of tension, ready to set in flames in anytime
+			</line>
+			<line s="vl">
+				Why have you came here? Is this beast one of you?
+			</line>			
+			<line s="om">
+				We have come here to aid this woman to safe her husband
+			</line>
+			<line s="w">			
+				He's no beast! He just tried to safe me from my capturers!
+			</line>
+			<line s="vl">
+				Which capturers are you talking about?
+			</line>
+			<line s="w">
+				The innkeeper captured me with his henchmen and tried to kill my husband!
+			</line>
+			<line s="ik">
+				That is a lie! I have never seen those people
+			</line>
+			<line s="n">
+				Old man tries to calm everyone down
+			</line>
+			<line s="n">
+				But villagers are in a heat of burning the beast of forest
+			</line>
+			<line s="n">
+				And now the beast's minions have arrived to safe him
+			</line>
+			<line s="n">
+				Someone throws a torch into bonfire
+			</line>
+			<line s="n">
+				Flames starting arise immediatelly
+			</line>
+			<line s="n">
+				Another torch is thrown
+			</line>
+			<line s="n">
+				Wife cry for help
+			</line>
+			<line s="n">
+				Forest people tries to prevent villagers for throwing the torches
+			</line>
+			<line s="n">
+				And so the tension itself burst into flames
+			</line>
+			<line s="n">
+				Swallowing all into blinding rage
+			</line>
+			<line s="n">
+				Fighting against each other
+			</line>
+			<line s="n">
+				No one listens when old man tries to calm them down
+			</line>
+			<line s="n">
+				A rage overcoming reason
+			</line>
+			<line s="n">
+				People killing each other
+			</line>
+			<hide asset="villages" />
+			<wait duration="1000" />
+			<line s="n" >	
+				The end
+			</line>			
+			<restart />
+		</scene>
+
+		<scene id="sceneWomanHaveAmulet">
+			<line s="n">
+				Old man sees an amulet on wife's chest
+			</line>
+			<line s="n">
+				He recognise it and asks where she got it
+			</line>
+			<line s="n">
+				She tell him about an old lady and how she guide her to this place
+			</line>
+			<line s="n">
+				Old man seems to fade in memories
+			</line>
+			<line s="n">
+				A drop of tear appears to corner of his eye
+			</line>
+			<line s="om">
+				For old time sakes I will help you
+			</line>
+			<line s="n">
+				Old man gathers people around and they travel to village
+			</line>
+			<hide asset="castle" />
+			<show asset="villages" />
+			<line s="n">
+				When they arrive they see all villagers gathered on village square
+			</line>
+			<line s="n">
+				At center of the square, husband is tied on the pole which is placed on big pile of woods
+			</line>
+			<line s="n">
+				Husband seems badly beaten
+			</line>
+			<line s="n">
+				When villagers sees forest people coming, they get alarmed thinking they've came for revence
+			</line>
+			<line s="n">
+				Old man talks to them saying they have came in peace
+			</line>
+			<line s="n">
+				They don't seem hostile so villagers calms down a bit, staying suspicious still
+			</line>
+			<line s="vl">
+				Why have you come here?
+			</line>
+			<line s="om">
+				This woman came to seek help for rescuing her husband
+			</line>
+			<line s="w">
+				What have you done to him!
+			</line>
+			<line s="n">
+				Wife cries as she rushes to her husband
+			</line>
+			<line s="vl">
+				That creature is a vile beast trying to kill our villagers!
+			</line>
+			<line s="w">
+				He's no beast! He just tried to safe me from my capturers!
+			</line>
+			<line s="vl">
+				Which capturers are you talking about?
+			</line>
+			<line s="w">
+				The innkeeper captured me with his henchmen and tried to kill my husband!
+			</line>
+			<line s="ik">
+				That is a lie! I have never seen those people
+			</line>
+			<line s="n">
+				Old lady appears from crowd she's the one giving the amulet to wife
+			</line>
+			<line s="ow">
+				I met this woman at a back alley of the inn
+			</line>
+			<line s="ow">
+				I know she's telling a truth and inn keeper is lying
+			</line>
+			<line s="vl">
+				How you know that?
+			</line>
+			<line s="ow">
+				Because I sense the truth in people's heart
+			</line>
+			<line s="ik">
+				Bah! She's a which! A conspirator with those forest beasts!
+			</line>
+			<line s="n">
+				Old man comes up to old woman
+			</line>
+			<line s="om">
+				I'm so glad to see you again, I've missed you
+			</line>
+			<line s="om">
+				She can truly sense the truth in other's heart
+			</line>
+			<line s="om">
+				We both gain that ability when living in the woods
+			</line>
+			<line s="om">
+				But she chose to go back living in society
+			</line>
+			<line s="om">
+				I'm glad you still have the sense
+			</line>
+			<line s="ow">
+				I've keeped my heart open like we learned my dear friend
+			</line>
+			<line s="ik">
+				You see! They both are whiches!
+			</line>
+			<line s="vl">
+				You have to prove your words old lady
+			</line>
+			<line s="ow">
+				Follow me to shed, there we can find proofs
+			</line>
+			<line s="n">
+				So they leave to shed at backyard of the inn
+			</line>
+			<line s="n">
+				They find a shed with front door smashed in
+			</line>
+			<line s="n">
+				Inside they find a signs of fighting
+			</line>
+			<line s="n">
+				There are blood and pieces from wifes clothes
+			</line>
+			<line s="n">
+				People are still suspicious
+			</line>
+			<line s="n">
+				Old woman and old man speaks to inn keeper and little by little he breaks
+			</line>
+			<line s="n">
+				He hangs his head in shame and with breaking voice he tells about what happened that night
+			</line>
+			<line s="n">
+				They were drunk sitting at inn
+			</line>
+			<line s="n">
+				The couple only customers in their room
+			</line>
+			<line s="n">
+				They talked about the couple
+			</line>
+			<line s="n">
+				Wondering who they were and where have they come
+			</line>
+			<line s="n">
+				In rising drunkenness
+			</line>
+			<line s="n">
+				In rising desire towards wife
+			</line>
+			<line s="n">
+				In rising jealousness towards husband
+			</line>
+			<line s="n">
+				Bitter towards their own lives
+			</line>
+			<line s="n">
+				Their anger growing into blinding rage
+			</line>
+			<line s="n">
+				Desire growing into blinding lust
+			</line>
+			<line s="n">
+				Before they knew they were charging into room
+			</line>
+			<line s="n">
+				Attacking against terrified husband and wife
+			</line>
+			<line s="n">
+				Beating them unconscious
+			</line>
+			<line s="n">
+				They locked wife in the shed and took husband into woods
+			</line>
+			<line s="n">
+				They beat husband in intention to kill him
+			</line>
+			<line s="n">
+				But as their drunkness were wearing off their rage was too
+			</line>
+			<line s="n">
+				Hits changing less severe
+			</line>
+			<line s="n">
+				They left husband lying on the ground and returned to inn
+			</line>
+			<line s="n">
+				They went to shed but now their lust and anger had changed into confusion
+			</line>
+			<line s="n">
+				Confusion and anger raising towards the deeds they'd done
+			</line>
+			<line s="n">
+				Wife starting to get her consciousness back
+			</line>
+			<line s="n">
+				Not knowing what to do, a fear getting into them
+			</line>
+			<line s="n">
+				A wave of frustration rising, they fed it in each other
+			</line>
+			<line s="n">
+				Suddenly starting to hit her until she didn't move
+			</line>
+			<line s="n">
+				They left the shed and locked the door
+			</line>
+			<line s="n">
+				Returning into their homes
+			</line>
+			<line s="n">
+				Numb and tired
+			</line>
+			<line s="n">
+				Afraid of the dawn
+			</line>
+			<wait duration="2000"/>
+			<line s="n">
+				At next day they were too afraid to go check wife or husband, if they even knew where they had left him
+			</line>
+			<line s="n">
+				They just tried to ignore all what had happened
+			</line>
+			<line s="n">
+				Hoping the problem would solve by itself
+			</line>
+			<line s="n">
+				Cleaning the room and continuing on their everyday lives
+			</line>
+			<line s="n">
+				Man stopped his talking still hanging his head low
+			</line>
+			<line s="n">
+				People heard the story and were shocked of what they have done
+			</line>
+			<line s="n">
+				But still they sensed a remorse in the inn keeper and his partners in crime
+			</line>
+			<line s="n">
+				There is none irreversible happened
+			</line>
+			<line s="w">
+				I can forgive you
+			</line>
+			<line s="n">
+				Husband still tied on the pole seemed not to feel exactly same way
+			</line>
+			<line s="n">
+				People agreed that those men should meet consequences of their actions
+			</line>
+			<line s="n">
+				With the lead of old woman and old man they started to teach that sensibility of heart to those men and all who was willing to learn
+			</line>
+			<line s="n">
+				The couple stayed with them finding themselves becoming more attached to them and their arising kindness
+			</line>
+			<hide asset="villages" />
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+
+<!-- DIALOG3 -->
+
+		<scene id="dialog3">
+			<hide asset="castle" />
+			<show asset="villages" />
+			<line s="n">		
+				A boy playing near the village suddenly sees a man coming from a forest, then another
+			</line>
+			<line s="n">
+				After a while there are dozens of people all approaching the village
+			</line>
+			<line s="n">
+				They are naked covered in dirt
+			</line>
+			<line s="n">
+				They remind him of animals
+			</line>
+			<line s="n">
+				Boy get scared and runs into village yelling \"The beasts of forest are coming to kill us!\"
+			</line>
+			<line s="n">
+				Villagers gather around the boy wondering what he means
+			</line>
+			<line s="n">
+				At the time forest people enters into village and they all see them
+			</line>
+			<line s="n">
+				All hell breaks loose: people scream in fear, yell in anger or run everywhere trying to hide or find something for a weapon
+			</line>
+			<line s="n">
+				Village leader appears to calm down people and trying to communicate with those wild looking people
+			</line>
+			<line s="n">
+				The old man comes from among the forest people and they start a conversation
+			</line>
+			<line s="vl">
+				Why have you came here? I assume you are those living in the forest?
+			</line>
+			<line s="om">
+				You are right. We came on reguest of this man, pointing on husband
+			</line>
+			<line s="om">
+				We don't mean to scare anybody or interfere your lives but this man came to seek help for rescuing his wife from this village
+			</line>
+			<line s="vl">
+				I have never seen that man. Who are you?
+			</line>
+			<line s="h">
+				Me and my wife came to this village last night and we stayed in village inn
+			</line>
+			<line s="h">
+				In the middle of the night a punch of men attacked in our room
+			</line>
+			<line s="h">
+				They knocked me unconsious and left in the forest
+			</line>
+			<line s="h">
+				I haven't seen my wife since
+			</line>
+			<line s="vl">
+				I see. So you believe someone in our village kidnapped her
+			</line>
+			<line s="vl">
+				Well I can assure you we are all decent people and won't do such a crime
+			</line>
+			<line s="ik">
+				And I can assure you that there were no couples staying my inn last night
+			</line>
+			<line s="h">
+				You are lying! Sure someone have seen us?!
+			</line>
+			<line s="n">
+				A tension between people in both sides is very tense
+			</line>
+			<line s="n">
+				All are silent like waiting a feather to drop and fighting to start
+			</line>
+			<line s="n">
+				All of them remains silent
+			</line>
+			<line s="om">
+				So someone is lying here
+			</line>
+			<line s="n">
+				"It's him!" both the man and innkeeper yells to each other
+			</line>
+			<line s="n">
+				Villagers and forest people starts to yell to each other
+			</line>
+			<line s="n">
+				Village leader and old man manage to calm them down
+			</line>
+			<line s="n">
+				They agree to search the inn if wife can be found
+			</line>
+			<line s="n">
+				Husband can't but follow the crowd
+			</line>
+			<line s="n">
+				They search the inn but all rooms looks clean and unoccupied
+			</line>
+			<line s="n">
+				Innkeeper tells that there's no one staying in at the moment
+			</line>
+			<line s="n">
+				Village leader and old man looks to husband and tells that there's nothing more they can do
+			</line>
+			<line s="n">
+				People from each group starts to accuse each other from kidnapping
+			</line>
+			<line s="n">
+				Tension is about to burst into flames
+			</line>			
+			<choice>
+				<option label="Husband tries to convince others that innkeeper is lying and hidin something" scene="dialog3Accuse"></option>
+				<option label="He runs out starting desperatelly seek and yell wifes name" scene="dialog3Seek"></option>
+				<option label="In desperation from losing his wife husband assail the innkeeper" scene="dialog3Attack"></option>					
+			</choice>
+		</scene>
+		
+		<scene ie="dialog3Accuse">
+			<line s="n">
+				Old man believes the husband have no reason to make up such accusation
+			</line>
+			<line s="om">
+				Why would he accuse that man otherwise which he clearly doesn't know
+			</line>
+			<line s="n">
+				Village leader is furious to them still keep accusing his fellow villager after he proofed that the inn is empty
+			</line>
+			<line s="vl">
+				You come here with these man-beasts accusing an innocent man!
+			</line>
+			<line s="n">
+				That gives a last spark which explodes the tension into furious fight
+			</line>
+			<line s="n">
+				The fight is hard and is over quickly
+			</line>
+			<line s="n">
+				Leaving behind a lot of corpses from both sides, the husband among them
+			</line>
+			<line s="n">
+				Rest of people continuing their living in their style
+			</line>
+			<line s="n">
+				Gaining nothing but a story to warn their children about a danger lurking nearby
+			</line>
+			<hide asset="villages" />
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+			
+		<scene id="dialog3Seek">
+			<line s="n">
+				The husband runs to backyard leaving people yell to each other
+			</line>
+			<line s="n">
+				He starts to yell his wife name
+			</line>
+			<line s="n">
+				He yells and yells sliding into desperation
+			</line>
+			<line s="n">
+				Dropping into his knees
+			</line>
+			<line s="n">
+				A bitter tears runs on his face
+			</line>
+			<line s="n">
+				Sounds are fading away
+			</line>
+			<line s="n">
+				Only a faint sound of his wife calling him
+			</line>
+			<line s="n">
+				A soft memory of her voice warming him
+			</line>
+			<line s="n">
+				His eyes quickly spreads wide open
+			</line>
+			<line s="n">
+				He can actually hear her voice!
+			</line>
+			<line s="n">
+				He sees a shed next to him
+			</line>
+			<line s="n">
+				Rushes on the door and brakes the door in
+			</line>
+			<line s="n">
+				His wife is laying on the floor
+			</line>
+			<line s="n">
+				Bloody and beaten but still alive
+			</line>
+			<line s="n">
+				He kneel down next to her and close her into his arms
+			</line>
+			<line s="h">
+				Finally I found you my love
+			</line>
+			<line s="n">
+				He burst into tears of joy
+			</line>
+			<line s="ik">
+				So you finally managed to find her
+			</line>
+			<line s="ik">
+				That's too bad for both of your sakes
+			</line>
+			<line s="n">
+				Innkeeper rises his shovel
+			</line>
+			<line s="n">
+				And starts hitting them until they both lays on the floor silent
+			</line>
+			<line s="n">
+				Both holding each other
+			</line>
+			<line s="n">
+				Finally together
+			</line>
+			<!--
+			show woman at left with dissolve
+			show man at right with dissolve
+			-->
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+			
+		<scene id="dialog3Attack">
+			<line s="n">
+				By attacking against innkeeper the husband launches a total mayhem
+			</line>
+			<line s="n">
+				Everybody attacking against each other
+			</line>
+			<line s="n">
+				With a furious rage husband crushes the innkeepers skull
+			</line>
+			<line s="n">
+				Blood spraying on husband covering him all over
+			</line>
+			<line s="n">
+				A loud sound caused by that crushed skull stops people from fighting
+			</line>
+			<line s="n">
+				They all see a man covered in blood looking at them with his mad eyes
+			</line>
+			<line s="n">
+				A smile on his face caused by a lunatic satisfaction he got by killing that liar
+			</line>
+			<line s="n">
+				A revenge for his wife
+			</line>
+			<line s="n">
+				People starts to run out of the room in hysteria
+			</line>
+			<line s="n">
+				Leaving the husband alone
+			</line>
+			<line s="n">
+				He take a one last look of the bastard who caused all that misery to him
+			</line>
+			<line s="n">
+				He sees a key on a string hanging on the innkeepers chest
+			</line>
+			<line s="n">
+				It must had been hidden under his shirt
+			</line>
+			<line s="n">
+				Husband takes the key and leaves the room
+			</line>
+			<line s="n">
+				He walks outside and sees a shed on the backyard
+			</line>
+			<line s="n">
+				He sees the key on his hand and walks to shed
+			</line>
+			<line s="n">
+				Put the key on the lock and opens it
+			</line>
+			<line s="n">
+				Inside he sees his wife lying on the floor unconscious
+			</line>
+			<line s="n">
+				All numb from the bloodbath and sudden reunion with his wife
+			</line>
+			<line s="n">
+				He lift her onto his arms
+			</line>
+			<line s="n">
+				And start walking away from the village
+			</line>
+			<line s="n">
+				Leaving only a blood droppings behind
+			</line>
+			<hide asset="villages" />
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />			
+		</scene>
+
+<!-- DIALOG 4 -->		
+
+		<scene id="dialog4">			 
+			<hide asset="villages" />
+			<set asset="mountains" image="mountain2" />
+			<show asset="mountains" />		
+			<choice>
+				<option label="Husband points to old man and yells to villagers &quot;There's your which! The root of all evil! Slay him and you'll be free!&quot;" scene="dialog4Attack"></option>
+				<option label="You can both live side by side! There is no need for bloodshed!" scene="dialog4Negotiation"></option>
+			</choice>
+		</scene>
+				
+		<scene id="dialog4Attack">			
+			<line s="n">
+				Husband's words rises villagers anger into rage
+			</line>
+			<line s="n">
+				They charge againts the forest people
+			</line>
+			<line s="n">
+				Both side hits and yells
+			</line>
+			<line s="n">
+				It's a bloody and cruel fight
+			</line>
+			<line s="n">
+				Fueled with fear and hatred
+			</line>
+			<line s="n">
+				Corpses laying around the ground
+			</line>
+			<line s="n">
+				Village leader and old man killing each other
+			</line>
+			<line s="n">
+				Only man and woman standing still
+			</line>
+			<line s="n">
+				Looking the bloody mess around them
+			</line>
+			<line s="n">
+				They take each other by hand and starts walking back to village
+			</line>
+			<line s="n">
+				Thinking of warm bath, hot meal and a bed back in village inn
+			</line>
+			<line s="n">
+				What a vacation they wandered
+			</line>
+			<hide asset="mountains" />
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+			
+		<scene id="dialog4Negotiation">
+			<line s="n">
+				Village leader turn on husband looking angry
+			</line>
+			<line s="vl">
+				It's you who caused this mess!
+			</line>
+			<line s="vl">
+				I told the innkeeper to take care of you two straight away
+			</line>
+			<line s="vl">
+				But ofcourse he had to let his lust getting into his brain
+			</line>
+			<line s="vl">
+				You strangers are nothing but a menace everytime
+			</line>
+			<line s="vl">
+				I suggest we end this now like we should have done straight away you arrived
+			</line>
+			<line s="h">
+				But...
+			</line>
+			<line s="om">
+				He attacked me once already
+			</line>
+			<line s="om">
+				I too think we get the peace and harmony back when these two are dealt
+			</line>
+			<line s="n">
+				People gathers around of the man and woman
+			</line>
+			<line s="n">
+				Man looked at his wife
+			</line>
+			<line s="n">
+				I warned you about these trips to backcountry but you just had to see some simple country living
+			</line>
+			<line s="n">
+				People charged on the couple
+			</line>
+			<line s="n">
+				Leaving behind nothing but a tale told by a fire
+			</line>
+			<hide asset="mountains" />
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+		
+<!-- DIALOG 5 -->
+
+		<scene id="dialog5">
+			<line s="n">
+				Husband is relieved to see innkeeper
+			</line>
+			<line s="n">
+				What is this madness?! First our room is attacked, then I wake up in the middle of forest beaten up and when I come back to village people acts hostile against me
+			</line>
+			<line s="n">
+				And my wife, where is she?!
+			</line>
+			<line s="ik">
+				It's suprise to see you...
+			</line>
+			<line s="ik">
+				So you were attacked last night? I was asleep and didn't hear anything
+			</line>
+			<line s="ik">
+				I thought you were still in your room
+			</line>			
+			<choice>
+				<option label="Why you are suprised to see me? You sure have noticed something related to attack" scene="dialog5Suspicious"></option>
+				<option label="Well let's check the room if she's still there" scene="dialog5Room"></option>					
+			</choice>
+		</scene>				
+				
+		<scene id="dialog5Suspicious">
+			<line s="ik">
+				Well coming through the front door looking like a one of those damn beasts living in the forest
+			</line>
+			<line s="ik">
+				I expected you to be still in the room
+			</line>
+			<line s="ik">
+				I haven't noticed anything unusual
+			</line>
+			<line s="n">
+				For a moment he looks nervous trying to get hold on himself
+			</line>
+			<line s="h">
+				Why I don't believe you... You're nervous about something. Are you holding something from me?
+			</line>
+			<line s="n">
+				innkeeper gives a husband an evil eye
+			</line>
+			<line s="ik">
+				Well you're right. We were careless not to bury you deep
+			</line>
+			<line s="ik">
+				But you're wife was just too tempting to waste time on you
+			</line>
+			<line s="h">
+				What a hell...
+			</line>
+			<line s="ik">
+				Yes it was us. And don't worry you're wife is still alive
+			</line>
+			<line s="ik">
+				But that doesn't matter much to you
+			</line>
+			<line s="ik">
+				Because you're about to take your last breath
+			</line>
+			<line s="n">
+				Innkeeper takes a big knife under a desk and attacks towards the husband
+			</line>
+			<!-- REPLACE WITH CHASE IMPLEMENTATION -->
+			<goto scene="dialog5ManWinsInnkeeper" />
+			<!--				
+			$ lblChaseSuccess = 3
+			$ lblChaseFailure = "manLoseInnkeeper"
+			# TODO: replace this with fighting system
+			$ chaseRounds = 5
+			play music "audio/music/Dominate loop.wav" loop
+			jump chase
+			-->
+		</scene>
+			
+		<scene id=" dialog5Room">
+			<line s="n">
+				Husband rushes the stairs upstairs where their room is
+			</line>
+			<line s="n">
+				He opens the door and finds the room to be empty and cleaned up
+			</line>
+			<line s="h">
+				What a hell! Why's the room is cleaned up?
+			</line>
+			<line s="h">
+				Where is she?!
+			</line>
+			<line s="n">
+				He still wonders why the room is cleaned when a hard punch hit onto his head
+			</line>
+			<line s="n">
+				He fell onto floor fading into unconsciousness
+			</line>
+			<line s="n">
+				Still faintly hearing innkeepers voice
+			</line>
+			<line s="ik">
+				Don't worry. I'll take care of you're wife
+			</line>
+			<line s="n">
+				Last thing the husband hears is the innkeeper's evil laughter
+			</line>
+			<hide asset="villages" />
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+		
+		<scene id="dialog5ManWinsInnkeeper">
+			<!--
+			stop music fadeout 4.0
+			play music "audio/music/Tribal Ritual.wav" loop fadein 4.0
+			-->
+			<line s="n">
+				Husband manages to avoid innkeeper's attack
+			</line>
+			<line s="n">
+				By the force of his swinging blade missing the target the innkeeper lose his balance, just enough that husband manage to hit him on the neck and bringing him down
+			</line>
+			<line s="n">
+				Husband strangles the innkeeper forcing him to tell where is his wife
+			</line>
+			<line s="n">
+				Innkeeper struggles for his life but when his about to choke he cries
+			</line>
+			<line s="ik">
+				Shed backyard...
+			</line>
+			<line s="n">
+				Husband release his grip and rushes to the backyard
+			</line>
+			<line s="n">
+				He sees the shed and force himself through the door
+			</line>
+			<line s="n">
+				He finds his wife lying on the floor unconscious
+			</line>
+			<line s="n">
+				She looks beaten
+			</line>
+			<line s="n">
+				He tries to wake her up but she's too weak to respond
+			</line>
+			<line s="n">
+				He takes her onto his arms and carry her away
+			</line>
+			<line s="n">
+				Away from this cursed place
+			</line>
+			<hide asset="villages" />
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+			
+		<scene id="dialog5ManLoseInnkeeper">
+			<!--
+			stop music fadeout 4.0
+			play music "audio/music/Tribal Ritual.wav" loop fadein 4.0
+			-->
+			<line s="n">
+				Husband cannot avoid the swing of innkeepers blade
+			</line>
+			<line s="n">
+				Blade bites his flesh causing an agoning pain
+			</line>
+			<line s="n">
+				Bringing husband down on his knees
+			</line>
+			<line s="n">
+				Innkeeper looks at him with his eyes wide open
+			</line>
+			<line s="n">
+				Laughing from satisfaction
+			</line>
+			<line s="n">
+				As he sinks his blade into husbands heart
+			</line>			
+			<hide asset="villages" />
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+		
+<!-- DIALOG 6 -->
+
+		<scene id="dialog6">
+			<set asset="villages" image="village" />
+			<show asset="villages" />
+			<line s="vl">
+				Why are you coming here like a savage scaring people?
+			</line>
+			<choice>
+				<option label="I come to get my wife back from those who took her" scene="dialog6Peaceful"></option>
+				<option label="I've came to get my wife back. Step aside or I smite you down!" scene="dialog6Hostile"></option>
+				<option label="Let's make a deal. Give my wife back and I give you their leader" scene="dialog6Offer"></option>
+			</choice>
+		</scene>
+		
+		<scene id="dialog6Peaceful">
+			<line s="vl">
+				What are you talking about, who took your wife?
+			</line>
+			<line s="h">
+				Men attacked us in the inn last night, they attacked into our room and took my wife!
+			</line>
+			<line s="vl">
+				Let's head to inn to get this clear
+			</line>
+			<line s="n">
+				They arrive to inn where they find the innkeeper
+			</line>
+			<line s="vl">
+				This man is claiming to stay here last night with his wife and they were attacked, do you know this man?
+			</line>
+			<line s="ik">
+				I don't know him! The man is obviously one of those savages living in forest!
+			</line>
+			<line s="h">
+				He is lying!
+			</line>
+			<line s="vl">
+				So you are saying they didn't stay here last night?
+			</line>
+			<line s="ik">
+				I'm sure of it. You can check the rooms all are empty at the moment
+			</line>
+			<line s="n">
+				They check every room but all seems clean and unused
+			</line>
+			<line s="n">
+				With no evidence and people remaining silent if they have seen the couple
+			</line>
+			<line s="n">
+				Village leader believes his fellow villager the innkeeper
+			</line>
+			<line s="n">
+				Last thing the husband sees is a big smile with arrogant eyes on innkeepers face when he looks at him
+			</line>
+			<line s="n">
+				Then a rage hits the husband, a pure rage
+			</line>
+			<line s="n">
+				He attacks to innkeeper
+			</line>
+			<line s="n">
+				People force the husband off from the innkeeper
+			</line>
+			<line s="ik">
+				See, he's a savage! Look at that beast!
+			</line>
+			<line s="n">
+				And so in fear and hatred villagers beat the beast to death
+			</line>
+			<line s="n">
+				Last thing in his mind: is his wife safe, is she alive?
+			</line>
+			<hide asset="villages" />
+			<wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+			
+		<scene id="dialog6Hostile">
+			<line s="n">
+				Villagers continue their attacks against him
+			</line>
+			<line s="n">
+				More villagers join in
+			</line>
+			<line s="n">
+				Man yells and curses them but they just get more furious
+			</line>
+			<line s="n">
+				Nobody stops them and they beat the man to death
+			</line>
+		   <hide asset="villages" />
+		   <wait duration="1000" />
+			<line s="n">
+				The end
+			</line>
+			<restart />
+		</scene>
+			
+		<scene id="dialog6Offer">
+			<line s="vl">
+				If you lead us to him we let your wife go
+			</line>
+			<line s="n">
+				So they all know about his wife
+			</line>
+			<line s="n">
+				But he leave that thought alone
+			</line>
+			<line s="n">
+				Being releaved hearing his wife is alive
+			</line>
+			<line s="n">
+				They make the deal and man sees his wife again
+			</line>
+			<line s="n">
+				The moment of rejoin is left brief villagers forcing husband to show the way
+			</line>
+			<line s="n">
+				People have gathered all kind of tools for weapons and lit torches for lighting the way
+			</line>
+			<hide asset="villages" />
+			<wait />
+			<set asset="mountains" image="mountain2" />
+			<show asset="mountains" />
+			<line s="n">
+				They march to castle
+			</line>
+			<line s="n">
+				They see strange looking people standing at front of the castle
+			</line>
+			<line s="n">
+				Some villager yells "Look! Beasts are there like we've warned
+			</line>
+			<line s="n">
+				They get nervous and scared, the lynch mood is changing into fear
+			</line>
+			<line s="n">
+				Village leader steps front
+			</line>
+			<line s="vl">
+				Now it's time to end this curse and living in fear! Let us lay the beasts!
+			</line>
+			<line s="n">
+				Someone walks from the crowd standing front of castle
+			</line>
+			<line s="n">
+				The old man. He begin to speak
+			</line>
+			<line s="om">
+				We have lived alone, meaning harm to no one, hoping us left alone in peace
+			</line>
+			<line s="om">
+				But feared that won't last. The time has come to make a solution for this
+			</line>
+			<line s="n">
+				"The only solution is you burnt at the stake!" yells some villager
+			</line>
+			<goto scene="dialog4" />    
+		</scene>
+
+    </scenes>
+</ws>
