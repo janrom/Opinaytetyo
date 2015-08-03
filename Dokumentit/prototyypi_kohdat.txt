@@ -1,6 +1,0 @@
-- työkalun valintaperustelu
-- työkalun miellekkyys, jos jotain editoria
-- assettien lisäys/käyttö
-- skriptikielten käyttö: oma / tuettu
-- debuggaus
-- luotettavuus
