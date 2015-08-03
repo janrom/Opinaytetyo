@@ -1,10 +1,6 @@
-Opinaytetyo
+VisualNovel
 ===========
 
-Säiliö Karelia AMK:ssa vuosina 2014-2015 tehdylle opinnäytetyölle.
+Projekti sisältää saman visuaalisen novellin prototyypin kehitettynä eri kehitystyökaluilla.
 
-Linkki Google Driven Opinnäytetyö-kansioon:
-
-https://drive.google.com/folderview?id=0B6Kq2CywUc7oc2Y4RXlyVnFSOVU&usp=sharing
-
-Sieltä löytyy esim. flowchart tarinan rakenteelle.
+Kehitystyö tapahtui syksystä 2014 kevääseen 2015.
